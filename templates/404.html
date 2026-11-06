@@ -1,0 +1,32 @@
+{% extends "base.html" %}
+
+{% block title %}Page Not Found (404) | MindBloom{% endblock %}
+
+{% block content %}
+<section class="container" style="padding: 4rem 1.5rem; text-align: center;">
+    <div class="completion-card" style="max-width: 580px; margin: 0 auto;">
+        <div style="width: 72px; height: 72px; border-radius: 50%; background-color: var(--color-primary-bg); color: var(--color-primary); display: flex; align-items: center; justify-content: center; margin: 0 auto 1.5rem auto;">
+            <svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2">
+                <circle cx="12" cy="12" r="10"></circle>
+                <line x1="12" y1="8" x2="12" y2="12"></line>
+                <line x1="12" y1="16" x2="12.01" y2="16"></line>
+            </svg>
+        </div>
+        <span class="badge badge-primary" style="font-size: 0.8rem; margin-bottom: 0.5rem;">404 Not Found</span>
+        <h1 style="font-size: 1.85rem; margin-top: 0.5rem; margin-bottom: 0.75rem;">Page Not Found</h1>
+        <p style="color: var(--color-text-secondary); font-size: 0.95rem; margin-bottom: 2rem; line-height: 1.6;">
+            The requested assessment page, report, or resource could not be found. It may have moved or the URL might be mistyped.
+        </p>
+        <div style="display: flex; gap: 0.75rem; justify-content: center; flex-wrap: wrap;">
+            <a href="{% url 'core:home' %}" class="btn btn-primary">
+                <span>Return to Homepage</span>
+            </a>
+            {% if user.is_authenticated %}
+                <a href="{% url 'core:dashboard' %}" class="btn btn-secondary">
+                    <span>Parent Dashboard</span>
+                </a>
+            {% endif %}
+        </div>
+    </div>
+</section>
+{% endblock %}

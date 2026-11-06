@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Server Error (500) | MindBloom</title>
+    <link rel="stylesheet" href="/static/css/style.css">
+</head>
+<body style="background-color: var(--color-bg); font-family: var(--font-sans); color: var(--color-text-main); min-height: 100vh; display: flex; align-items: center; justify-content: center; padding: 2rem;">
+    <div class="completion-card" style="max-width: 580px; width: 100%; text-align: center;">
+        <div style="width: 72px; height: 72px; border-radius: 50%; background-color: #fee2e2; color: #b91c1c; display: flex; align-items: center; justify-content: center; margin: 0 auto 1.5rem auto;">
+            <svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2">
+                <path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"></path>
+                <line x1="12" y1="9" x2="12" y2="13"></line>
+                <line x1="12" y1="17" x2="12.01" y2="17"></line>
+            </svg>
+        </div>
+        <span class="badge" style="background-color: #fee2e2; color: #991b1b; font-size: 0.8rem; margin-bottom: 0.5rem;">500 Internal Error</span>
+        <h1 style="font-size: 1.85rem; margin-top: 0.5rem; margin-bottom: 0.75rem;">An Unexpected Error Occurred</h1>
+        <p style="color: var(--color-text-secondary); font-size: 0.95rem; margin-bottom: 2rem; line-height: 1.6;">
+            The server encountered an issue processing your request. Please return to the homepage or try again in a few moments.
+        </p>
+        <div style="display: flex; gap: 0.75rem; justify-content: center; flex-wrap: wrap;">
+            <a href="/" class="btn btn-primary">
+                <span>Return to Homepage</span>
+            </a>
+            <a href="/dashboard/" class="btn btn-secondary">
+                <span>Parent Dashboard</span>
+            </a>
+        </div>
+    </div>
+</body>
+</html>

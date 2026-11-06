@@ -1,0 +1,113 @@
+{% extends "base.html" %}
+
+{% block title %}Assessments Overview | MindBloom{% endblock %}
+
+{% block content %}
+<section class="page-hero">
+    <div class="container">
+        <span class="section-tag">Assessment Hub</span>
+        <h1 class="page-hero-title">Structured Child Assessment Program</h1>
+        <p class="page-hero-lead">
+            MindBloom combines cognitive pattern analysis with interest profiling to create a balanced, holistic view of each child's individual learning capabilities.
+        </p>
+    </div>
+</section>
+
+<section class="container">
+    <!-- Two Assessment Tracks -->
+    <div class="grid-2" style="margin-bottom: 3.5rem;">
+        <!-- Track 1: Aptitude -->
+        <div class="category-card" style="padding: 2.25rem;">
+            <div class="category-header">
+                <div class="category-icon-box">
+                    <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2">
+                        <rect x="3" y="3" width="7" height="7"></rect>
+                        <rect x="14" y="3" width="7" height="7"></rect>
+                        <rect x="14" y="14" width="7" height="7"></rect>
+                        <rect x="3" y="14" width="7" height="7"></rect>
+                    </svg>
+                </div>
+                <span class="section-tag" style="margin-bottom: 0;">Part 1 &bull; Cognitive</span>
+            </div>
+
+            <h2 style="font-size: 1.6rem; margin-bottom: 0.75rem;">Aptitude Evaluation</h2>
+            <p class="category-desc">
+                Explores how the child processes structural relationships, deduce sequences, calculates quantitative patterns, and visualizes geometric orientations.
+            </p>
+
+            <ul class="content-list" style="margin-bottom: 2rem;">
+                <li><strong>Logical Reasoning:</strong> Shape progression and deductive reasoning</li>
+                <li><strong>Numerical Ability:</strong> Arithmetic logic and number sense</li>
+                <li><strong>Spatial Visualization:</strong> 2D to 3D rotation and visual puzzles</li>
+            </ul>
+
+            <div style="display: flex; align-items: center; justify-content: space-between; margin-top: auto; padding-top: 1.5rem; border-top: 1px solid var(--color-border);">
+                <span style="font-size: 0.88rem; color: var(--color-text-muted);">Est. Duration: ~15 mins</span>
+                <a href="{% url 'assessment:aptitude_intro' %}" class="btn btn-primary">
+                    <span>Explore Aptitude Details</span>
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+                        <line x1="5" y1="12" x2="19" y2="12"></line>
+                        <polyline points="12 5 19 12 12 19"></polyline>
+                    </svg>
+                </a>
+            </div>
+        </div>
+
+        <!-- Track 2: Interest -->
+        <div class="category-card" style="padding: 2.25rem;">
+            <div class="category-header">
+                <div class="category-icon-box teal">
+                    <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2">
+                        <path d="M12 2a14.5 14.5 0 0 0 0 20 14.5 14.5 0 0 0 0-20"></path>
+                        <circle cx="12" cy="12" r="4"></circle>
+                    </svg>
+                </div>
+                <span class="section-tag teal" style="margin-bottom: 0;">Part 2 &bull; Passions</span>
+            </div>
+
+            <h2 style="font-size: 1.6rem; margin-bottom: 0.75rem;">Interest Profiling</h2>
+            <p class="category-desc">
+                Discovers what activities, environments, and questions spark the child's genuine curiosity and sustained enthusiasm outside of strict classroom tasks.
+            </p>
+
+            <ul class="content-list" style="margin-bottom: 2rem;">
+                <li><strong>Creative Thinking:</strong> Visual imagination, music, and crafting</li>
+                <li><strong>Scientific Inquiry:</strong> Natural science, coding, and experiments</li>
+                <li><strong>Social &amp; Communication:</strong> Peer collaboration and storytelling</li>
+            </ul>
+
+            <div style="display: flex; align-items: center; justify-content: space-between; margin-top: auto; padding-top: 1.5rem; border-top: 1px solid var(--color-border);">
+                <span style="font-size: 0.88rem; color: var(--color-text-muted);">Est. Duration: ~10 mins</span>
+                <a href="{% url 'assessment:interest_intro' %}" class="btn btn-teal">
+                    <span>Explore Interest Details</span>
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+                        <line x1="5" y1="12" x2="19" y2="12"></line>
+                        <polyline points="12 5 19 12 12 19"></polyline>
+                    </svg>
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <!-- Preparation Guidelines -->
+    <div class="content-card">
+        <h3>How to Prepare Your Child</h3>
+        <p>To ensure a positive and reflective experience, keep the following guidelines in mind:</p>
+        <div class="grid-3" style="margin-top: 1.5rem;">
+            <div style="padding: 1rem; background-color: var(--color-surface-muted); border-radius: var(--radius-md);">
+                <strong style="display: block; margin-bottom: 0.35rem; color: var(--color-primary);">1. Low-Stress Environment</strong>
+                <p style="font-size: 0.9rem;">Present this as a fun, curious exploration rather than a formal school test or grading exam.</p>
+            </div>
+            <div style="padding: 1rem; background-color: var(--color-surface-muted); border-radius: var(--radius-md);">
+                <strong style="display: block; margin-bottom: 0.35rem; color: var(--color-primary);">2. Self-Paced Pacing</strong>
+                <p style="font-size: 0.9rem;">Children are encouraged to take all the time they need and may take breaks between sections.</p>
+            </div>
+            <div style="padding: 1rem; background-color: var(--color-surface-muted); border-radius: var(--radius-md);">
+                <strong style="display: block; margin-bottom: 0.35rem; color: var(--color-primary);">3. No "Wrong" Passions</strong>
+                <p style="font-size: 0.9rem;">In interest sections, all preferences are valid. Authenticity is celebrated above any expectation.</p>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}
+

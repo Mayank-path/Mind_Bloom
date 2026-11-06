@@ -1,0 +1,275 @@
+{% extends "base.html" %}
+
+{% block title %}Aptitude Assessment Report &bull; {{ child.name }} | MindBloom{% endblock %}
+
+{% block content %}
+<section class="container" style="padding-top: 2rem; padding-bottom: 3.5rem;">
+    <!-- Report Action Navigation Bar (Hidden during print) -->
+    <div class="report-actions-bar" style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1.5rem; flex-wrap: wrap; gap: 1rem;">
+        <a href="{% url 'results:overview' %}" class="btn btn-outline btn-sm">
+            &larr; Back to Results Overview
+        </a>
+        <div style="display: flex; gap: 0.75rem; align-items: center;">
+            <button onclick="window.print()" class="btn btn-secondary btn-sm" title="Print this report or save as PDF">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <polyline points="6 9 6 2 18 2 18 9"></polyline>
+                    <path d="M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2"></path>
+                    <rect x="6" y="14" width="12" height="8"></rect>
+                </svg>
+                <span>Print / Save PDF</span>
+            </button>
+            <a href="{% url 'assessment:selection' child_id=child.id %}" class="btn btn-primary btn-sm">
+                <span>Take Another Assessment &rarr;</span>
+            </a>
+        </div>
+    </div>
+
+    <!-- Header Card: Child Info + Assessment Details -->
+    <div class="report-header-card">
+        <div class="report-header-top">
+            <div class="child-avatar-group">
+                <div class="child-avatar-circle" aria-hidden="true" style="width: 64px; height: 64px; font-size: 1.5rem;">
+                    {{ child.name|make_list|first|upper }}
+                </div>
+                <div>
+                    <span class="section-tag" style="margin-bottom: 0.25rem;">Cognitive Aptitude Evaluation</span>
+                    <h1 style="font-size: 1.85rem; margin-bottom: 0.25rem;">{{ child.name }}'s Aptitude Report</h1>
+                    <div class="child-meta-grid" style="margin-top: 0.5rem;">
+                        <div class="child-meta-item"><strong>Age:</strong> {{ child.age }} years</div>
+                        <div class="child-meta-item"><strong>Gender:</strong> {{ child.get_gender_display }}</div>
+                        {% if child.grade %}
+                            <div class="child-meta-item"><strong>Grade:</strong> {{ child.grade }}</div>
+                        {% endif %}
+                        <div class="child-meta-item"><strong>Assessment Date:</strong> {{ assessment.completed_at|date:"F d, Y" }}</div>
+                        <div class="child-meta-item"><strong>Attempt ID:</strong> #{{ assessment.id }}</div>
+                    </div>
+                </div>
+            </div>
+
+            <div style="text-align: right;">
+                <span class="badge badge-primary" style="font-size: 0.85rem; padding: 0.4rem 0.9rem;">
+                    Status: Evaluated &amp; Verified
+                </span>
+            </div>
+        </div>
+
+        <!-- Executive Metrics KPI Grid -->
+        <div class="report-kpi-grid">
+            <div class="report-kpi-tile featured">
+                <div class="report-kpi-value">{{ result.overall_percentage }}%</div>
+                <div class="report-kpi-label">Overall Score</div>
+                <div class="report-kpi-sub">
+                    {% if result.overall_percentage >= 80 %}
+                        High Proficiency
+                    {% elif result.overall_percentage >= 60 %}
+                        Sound Capability
+                    {% elif result.overall_percentage >= 40 %}
+                        Developing Foundation
+                    {% else %}
+                        Emerging Exploration
+                    {% endif %}
+                </div>
+            </div>
+
+            <div class="report-kpi-tile">
+                <div class="report-kpi-value" style="color: #15803d;">{{ result.correct_answers }}</div>
+                <div class="report-kpi-label">Correct Answers</div>
+                <div class="report-kpi-sub">Out of {{ result.total_questions }} questions</div>
+            </div>
+
+            <div class="report-kpi-tile">
+                <div class="report-kpi-value" style="color: #b45309;">{{ result.incorrect_answers }}</div>
+                <div class="report-kpi-label">Learning Opportunities</div>
+                <div class="report-kpi-sub">Areas for gentle review</div>
+            </div>
+
+            <div class="report-kpi-tile">
+                <div class="report-kpi-value">{{ result.total_questions }}</div>
+                <div class="report-kpi-label">Questions Evaluated</div>
+                <div class="report-kpi-sub">100% completion rate</div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Constructive Feedback Summary Box -->
+    <div class="narrative-summary-card">
+        <span class="section-tag" style="margin-bottom: 0.5rem; background-color: #ffffff;">MindBloom Performance Summary</span>
+        <p class="narrative-quote">
+            &ldquo;{{ result.summary }}&rdquo;
+        </p>
+    </div>
+
+    <!-- Relative Strengths & Growth Areas Grid -->
+    <div class="grid-2" style="margin-bottom: 2.5rem;">
+        <!-- Relative Strengths Card -->
+        <div class="content-card" style="border-top: 4px solid var(--color-teal); background-color: #f0fdfa;">
+            <div style="display: flex; align-items: center; gap: 0.75rem; margin-bottom: 1rem;">
+                <div style="width: 36px; height: 36px; border-radius: 50%; background-color: #ccfbf1; color: var(--color-teal); display: flex; align-items: center; justify-content: center;">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+                        <polyline points="20 6 9 17 4 12"></polyline>
+                    </svg>
+                </div>
+                <div>
+                    <h3 style="font-size: 1.25rem; margin: 0; color: #115e59;">Relative Strengths</h3>
+                    <span style="font-size: 0.8rem; color: #134e4a;">Domains where {{ child.name }} excelled</span>
+                </div>
+            </div>
+
+            <div style="display: flex; flex-direction: column; gap: 0.75rem;">
+                {% for strength in result.strongest_categories %}
+                    <div style="background-color: #ffffff; border: 1px solid #99f6e4; border-radius: var(--radius-md); padding: 0.85rem 1rem; display: flex; justify-content: space-between; align-items: center;">
+                        <span style="font-weight: 700; color: #0f766e;">{{ strength }}</span>
+                        <span class="badge badge-teal" style="font-size: 0.75rem;">Exemplary Grasp</span>
+                    </div>
+                {% empty %}
+                    <p style="font-size: 0.9rem; color: var(--color-text-muted);">
+                        Balanced across all tested cognitive dimensions.
+                    </p>
+                {% endfor %}
+            </div>
+        </div>
+
+        <!-- Growth Opportunities Card -->
+        <div class="content-card" style="border-top: 4px solid var(--color-primary); background-color: #eef2ff;">
+            <div style="display: flex; align-items: center; gap: 0.75rem; margin-bottom: 1rem;">
+                <div style="width: 36px; height: 36px; border-radius: 50%; background-color: #e0e7ff; color: var(--color-primary); display: flex; align-items: center; justify-content: center;">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+                        <circle cx="12" cy="12" r="10"></circle>
+                        <line x1="12" y1="8" x2="12" y2="12"></line>
+                        <line x1="12" y1="16" x2="12.01" y2="16"></line>
+                    </svg>
+                </div>
+                <div>
+                    <h3 style="font-size: 1.25rem; margin: 0; color: #3730a3;">Growth Opportunities</h3>
+                    <span style="font-size: 0.8rem; color: #312e81;">Encouraging practice focus areas</span>
+                </div>
+            </div>
+
+            <div style="display: flex; flex-direction: column; gap: 0.75rem;">
+                {% for area in result.growth_categories %}
+                    <div style="background-color: #ffffff; border: 1px solid #c7d2fe; border-radius: var(--radius-md); padding: 0.85rem 1rem; display: flex; justify-content: space-between; align-items: center;">
+                        <span style="font-weight: 700; color: #4338ca;">{{ area }}</span>
+                        <span class="badge badge-primary" style="font-size: 0.75rem;">Practice &amp; Play</span>
+                    </div>
+                {% empty %}
+                    <p style="font-size: 0.9rem; color: var(--color-text-muted);">
+                        Exceptional all-round consistency demonstrated.
+                    </p>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+
+    <!-- Category Breakdown Table -->
+    <div class="section-header" style="text-align: left; margin-bottom: 1.5rem;">
+        <span class="section-tag teal">Category Breakdown</span>
+        <h2 class="section-title">Cognitive Domain Performance</h2>
+        <p class="section-subtitle" style="margin: 0;">
+            Review accuracy across each of the five core aptitude dimensions.
+        </p>
+    </div>
+
+    <div class="category-progress-table" style="margin-bottom: 3rem;">
+        {% for cat_name, cat_data in result.category_scores.items %}
+            <div class="category-row-card">
+                <div class="category-row-header">
+                    <div class="category-row-title">
+                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <rect x="2" y="7" width="20" height="14" rx="2" ry="2"></rect>
+                            <path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"></path>
+                        </svg>
+                        <span>{{ cat_name }}</span>
+                    </div>
+                    <div class="category-row-stats">
+                        <span class="category-row-score">{{ cat_data.correct }} of {{ cat_data.total }} Correct</span>
+                        <span class="category-row-pct">{{ cat_data.percentage }}%</span>
+                    </div>
+                </div>
+
+                <!-- Visual Progress Bar -->
+                <div class="category-meter" role="progressbar" aria-valuenow="{{ cat_data.percentage }}" aria-valuemin="0" aria-valuemax="100">
+                    <div class="category-meter-fill" style="width: {{ cat_data.percentage }}%;"></div>
+                </div>
+
+                <div class="category-row-desc">
+                    {% if cat_name == "Logical Reasoning" %}
+                        Evaluates step-by-step deductive logic, relational inference, and causal cause-and-effect reasoning.
+                    {% elif cat_name == "Numerical Ability" %}
+                        Assesses quantitative agility, number patterns, word problems, and foundational arithmetic intuition.
+                    {% elif cat_name == "Spatial Reasoning" %}
+                        Tests mental rotation, shape transformations, visual orientation, and multi-dimensional geometry.
+                    {% elif cat_name == "Pattern Recognition" %}
+                        Measures observation speed, sequence completion, repeating motif detection, and symmetry awareness.
+                    {% elif cat_name == "Problem Solving" %}
+                        Explores multi-step deduction, elimination of incorrect possibilities, and real-world logic challenges.
+                    {% else %}
+                        Evaluates targeted cognitive reasoning tasks and adaptive problem solving.
+                    {% endif %}
+                </div>
+            </div>
+        {% endfor %}
+    </div>
+
+    <!-- Recommendations for Parents & Educators -->
+    <div class="section-header" style="text-align: left; margin-bottom: 1.5rem;">
+        <span class="section-tag">Actionable Support</span>
+        <h2 class="section-title">Nurturing Recommendations</h2>
+        <p class="section-subtitle" style="margin: 0;">
+            Suggested playful learning activities to foster ongoing analytical confidence.
+        </p>
+    </div>
+
+    <div class="grid-3" style="margin-bottom: 2.5rem;">
+        <div class="content-card">
+            <h3>Puzzles &amp; Tangrams</h3>
+            <p>
+                Introduce tangram sets, Rubik's cubes, and jigsaw puzzles to reinforce mental rotation, spatial awareness, and shape comprehension.
+            </p>
+            <div style="margin-top: 1rem; font-size: 0.85rem; color: var(--color-primary); font-weight: 600;">
+                Focus: Spatial &amp; Pattern Skills
+            </div>
+        </div>
+
+        <div class="content-card">
+            <h3>Strategy Board Games</h3>
+            <p>
+                Engage in games like Chess, Checkers, Blokus, or Connect Four that naturally teach foresight, pattern prediction, and planning.
+            </p>
+            <div style="margin-top: 1rem; font-size: 0.85rem; color: var(--color-teal); font-weight: 600;">
+                Focus: Deductive Logic &amp; Strategy
+            </div>
+        </div>
+
+        <div class="content-card">
+            <h3>Real-World Math Play</h3>
+            <p>
+                Incorporate everyday arithmetic: measuring cooking ingredients, calculating change at a grocery store, or estimating travel times.
+            </p>
+            <div style="margin-top: 1rem; font-size: 0.85rem; color: var(--color-primary); font-weight: 600;">
+                Focus: Quantitative Intuition
+            </div>
+        </div>
+    </div>
+
+    <!-- Ethical & Educational Disclaimer Box -->
+    <div class="report-disclaimer-box">
+        <div class="report-disclaimer-icon">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <circle cx="12" cy="12" r="10"></circle>
+                <line x1="12" y1="8" x2="12" y2="12"></line>
+                <line x1="12" y1="16" x2="12.01" y2="16"></line>
+            </svg>
+        </div>
+        <div>
+            <div class="report-disclaimer-title">Academic Semester Project &bull; Educational Disclaimer</div>
+            <p class="report-disclaimer-text">
+                This assessment is developed strictly as a computer engineering college semester project (MindBloom System). 
+                The results provided are intended solely for constructive self-discovery, exploratory guidance, and educational engagement. 
+                They do <strong>not</strong> constitute a clinical psychological diagnosis, standardized IQ test, psychiatric evaluation, 
+                or formal academic placement examination. Each child learns and blooms at their own pace.
+            </p>
+        </div>
+    </div>
+</section>
+{% endblock %}
+

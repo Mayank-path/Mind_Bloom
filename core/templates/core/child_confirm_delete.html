@@ -1,0 +1,92 @@
+{% extends "base.html" %}
+
+{% block title %}Confirm Deletion: {{ child.name }} | MindBloom{% endblock %}
+
+{% block content %}
+<section style="background-color: var(--color-surface); border-bottom: 1px solid var(--color-border); padding: 1rem 0;">
+    <div class="container" style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 0.75rem;">
+        <div style="font-size: 0.88rem; color: var(--color-text-muted); display: flex; align-items: center; gap: 0.5rem;">
+            <a href="{% url 'core:dashboard' %}" style="color: var(--color-primary); font-weight: 600;">Dashboard</a>
+            <span>&rsaquo;</span>
+            <a href="{% url 'core:child_detail' child_id=child.id %}" style="color: var(--color-primary); font-weight: 600;">{{ child.name }}</a>
+            <span>&rsaquo;</span>
+            <span style="color: #b91c1c; font-weight: 600;">Confirm Delete</span>
+        </div>
+        <div>
+            <a href="{% url 'core:child_detail' child_id=child.id %}" class="btn btn-secondary btn-sm">
+                <span>&larr; Back to Profile</span>
+            </a>
+        </div>
+    </div>
+</section>
+
+<section class="container" style="margin-top: 3rem; margin-bottom: 4rem;">
+    <div style="max-width: 580px; margin: 0 auto; background: var(--color-surface); border: 2px solid #fecaca; border-radius: var(--radius-xl); padding: 2.5rem; box-shadow: var(--shadow-card);">
+        <div style="text-align: center; margin-bottom: 1.75rem;">
+            <div style="width: 64px; height: 64px; border-radius: 50%; background-color: #fee2e2; color: #b91c1c; display: flex; align-items: center; justify-content: center; margin: 0 auto 1.25rem auto;">
+                <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2">
+                    <circle cx="12" cy="12" r="10"></circle>
+                    <line x1="12" y1="8" x2="12" y2="12"></line>
+                    <line x1="12" y1="16" x2="12.01" y2="16"></line>
+                </svg>
+            </div>
+            <span class="badge" style="background-color: #fee2e2; color: #991b1b; font-size: 0.8rem; margin-bottom: 0.5rem;">Danger Zone</span>
+            <h1 style="font-size: 1.65rem; margin-top: 0.25rem; margin-bottom: 0.5rem; color: #991b1b;">
+                Delete Profile for {{ child.name }}?
+            </h1>
+            <p style="color: var(--color-text-secondary); font-size: 0.95rem; margin: 0; line-height: 1.5;">
+                Please carefully review the consequences of deleting this learner profile.
+            </p>
+        </div>
+
+        <!-- Cascading Impact Summary -->
+        <div style="background-color: var(--color-surface-muted); border: 1px solid var(--color-border); border-radius: var(--radius-md); padding: 1.25rem; margin-bottom: 1.75rem;">
+            <h4 style="font-size: 0.88rem; text-transform: uppercase; color: var(--color-text-muted); margin-bottom: 0.75rem; font-weight: 700;">
+                The following records will be permanently removed:
+            </h4>
+            <ul style="font-size: 0.9rem; color: var(--color-text-main); display: flex; flex-direction: column; gap: 0.5rem; padding-left: 0.5rem;">
+                <li style="display: flex; justify-content: space-between; border-bottom: 1px dashed var(--color-border); padding-bottom: 0.35rem;">
+                    <span>Child Profile Record:</span>
+                    <strong>1 Profile ({{ child.name }})</strong>
+                </li>
+                <li style="display: flex; justify-content: space-between; border-bottom: 1px dashed var(--color-border); padding-bottom: 0.35rem;">
+                    <span>Total Assessments:</span>
+                    <strong>{{ total_assessments }} Attempt{{ total_assessments|pluralize }} ({{ aptitude_count }} Aptitude, {{ interest_count }} Interest)</strong>
+                </li>
+                <li style="display: flex; justify-content: space-between; border-bottom: 1px dashed var(--color-border); padding-bottom: 0.35rem;">
+                    <span>Generated Strength Reports:</span>
+                    <strong>{{ results_count }} Report{{ results_count|pluralize }}</strong>
+                </li>
+                <li style="display: flex; justify-content: space-between; padding-bottom: 0.15rem;">
+                    <span>Recorded Responses:</span>
+                    <strong>{{ answers_count }} Question Answer{{ answers_count|pluralize }}</strong>
+                </li>
+            </ul>
+        </div>
+
+        <div class="alert alert-danger" style="margin-bottom: 2rem; font-size: 0.88rem;">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"></circle><line x1="12" y1="8" x2="12" y2="12"></line><line x1="12" y1="16" x2="12.01" y2="16"></line></svg>
+            <div>
+                <strong>Warning:</strong> This action cannot be reversed. All associated assessment records, answers, and longitudinal progress comparisons will be permanently deleted from the system.
+            </div>
+        </div>
+
+        <form method="post" action="{% url 'core:child_delete' child_id=child.id %}">
+            {% csrf_token %}
+            <div style="display: flex; gap: 0.75rem; justify-content: flex-end;">
+                <a href="{% url 'core:child_detail' child_id=child.id %}" class="btn btn-secondary">
+                    <span>Cancel / Keep Profile</span>
+                </a>
+                <button type="submit" class="btn" style="background-color: #dc2626; color: #ffffff; border-color: #dc2626;">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <polyline points="3 6 5 6 21 6"></polyline>
+                        <path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path>
+                    </svg>
+                    <span>Confirm &amp; Delete Permanently</span>
+                </button>
+            </div>
+        </form>
+    </div>
+</section>
+{% endblock %}
+

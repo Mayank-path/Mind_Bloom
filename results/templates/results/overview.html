@@ -1,0 +1,196 @@
+{% extends "base.html" %}
+
+{% block title %}Assessment Results & Insights | MindBloom{% endblock %}
+
+{% block content %}
+<section class="page-hero">
+    <div class="container">
+        <span class="section-tag">Results &amp; Insights</span>
+        <h1 class="page-hero-title">Assessment Results &amp; Strength Reports</h1>
+        <p class="page-hero-lead">
+            MindBloom transforms child responses into constructive, easy-to-read strength profiles with actionable educational recommendations.
+        </p>
+    </div>
+</section>
+
+<section class="container">
+    {% if has_active_results %}
+        <!-- Active Child Completed Assessments Section -->
+        <div class="child-profile-card" style="margin-bottom: 2rem;">
+            <div class="child-avatar-group">
+                <div class="child-avatar-circle" aria-hidden="true">
+                    {{ child.name|make_list|first|upper }}
+                </div>
+                <div>
+                    <span class="section-tag" style="margin-bottom: 0.25rem;">Active Learner Profile</span>
+                    <h2 style="font-size: 1.5rem; margin-bottom: 0.2rem;">{{ child.name }}</h2>
+                    <div class="child-meta-grid">
+                        <div class="child-meta-item"><strong>Age:</strong> {{ child.age }} years</div>
+                        <div class="child-meta-item"><strong>Gender:</strong> {{ child.get_gender_display }}</div>
+                        {% if child.grade %}
+                            <div class="child-meta-item"><strong>Grade:</strong> {{ child.grade }}</div>
+                        {% endif %}
+                        <div class="child-meta-item"><strong>Completed:</strong> {{ completed_assessments|length }} Module{{ completed_assessments|length|pluralize }}</div>
+                    </div>
+                </div>
+            </div>
+            <div>
+                <a href="{% url 'assessment:selection' child_id=child.id %}" class="btn btn-outline btn-sm">
+                    <span>Take Another Assessment</span>
+                </a>
+            </div>
+        </div>
+
+        <div class="section-header" style="margin-bottom: 1.5rem; text-align: left;">
+            <span class="section-tag teal">Generated Reports</span>
+            <h2 class="section-title">Completed Assessment Reports</h2>
+            <p class="section-subtitle" style="margin: 0;">
+                Click any report below to view detailed breakdown, cognitive insights, and learning suggestions.
+            </p>
+        </div>
+
+        <div class="grid-2" style="margin-bottom: 3.5rem;">
+            {% for item in completed_assessments %}
+                <div class="category-card" style="padding: 2rem; display: flex; flex-direction: column; justify-content: space-between;">
+                    <div>
+                        <div class="category-header">
+                            <div class="category-icon-box {% if item.assessment.assessment_type == 'INTEREST' %}teal{% endif %}">
+                                {% if item.assessment.assessment_type == 'APTITUDE' %}
+                                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2">
+                                        <rect x="3" y="3" width="7" height="7"></rect>
+                                        <rect x="14" y="3" width="7" height="7"></rect>
+                                        <rect x="14" y="14" width="7" height="7"></rect>
+                                        <rect x="3" y="14" width="7" height="7"></rect>
+                                    </svg>
+                                {% else %}
+                                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2">
+                                        <path d="M12 2a14.5 14.5 0 0 0 0 20 14.5 14.5 0 0 0 0-20"></path>
+                                        <circle cx="12" cy="12" r="4"></circle>
+                                    </svg>
+                                {% endif %}
+                            </div>
+                            <span class="badge {% if item.assessment.assessment_type == 'APTITUDE' %}badge-primary{% else %}badge-teal{% endif %}">
+                                {{ item.assessment.get_assessment_type_display }}
+                            </span>
+                        </div>
+
+                        <h3 style="font-size: 1.35rem; margin-bottom: 0.5rem;">{{ item.assessment.get_assessment_type_display }} Report</h3>
+                        
+                        <div style="font-size: 0.85rem; color: var(--color-text-muted); margin-bottom: 1.25rem;">
+                            Completed on {{ item.assessment.completed_at|date:"F d, Y \a\\t h:i A" }}
+                        </div>
+
+                        {% if item.assessment.assessment_type == 'APTITUDE' %}
+                            <div style="display: flex; align-items: baseline; gap: 0.5rem; margin-bottom: 1rem;">
+                                <span style="font-size: 2.25rem; font-weight: 800; color: var(--color-primary);">{{ item.result.overall_percentage }}%</span>
+                                <span style="font-size: 0.95rem; color: var(--color-text-muted);">
+                                    ({{ item.result.correct_answers }} of {{ item.result.total_questions }} correct)
+                                </span>
+                            </div>
+                            <p style="font-size: 0.9rem; color: var(--color-text); margin-bottom: 0.5rem;">
+                                <strong>Relative Strengths:</strong>
+                            </p>
+                            <div style="display: flex; flex-wrap: wrap; gap: 0.4rem; margin-bottom: 1.5rem;">
+                                {% for s in item.result.strongest_categories %}
+                                    <span class="badge badge-teal" style="font-size: 0.78rem;">{{ s }}</span>
+                                {% endfor %}
+                            </div>
+                        {% else %}
+                            <div style="display: flex; align-items: baseline; gap: 0.5rem; margin-bottom: 1rem;">
+                                <span style="font-size: 2.25rem; font-weight: 800; color: var(--color-teal);">{{ item.result.total_questions }}</span>
+                                <span style="font-size: 0.95rem; color: var(--color-text-muted);">
+                                    Preference selections recorded
+                                </span>
+                            </div>
+                            <p style="font-size: 0.9rem; color: var(--color-text); margin-bottom: 0.5rem;">
+                                <strong>Top Interest Domains:</strong>
+                            </p>
+                            <div style="display: flex; flex-wrap: wrap; gap: 0.4rem; margin-bottom: 1.5rem;">
+                                {% for t in item.result.top_interest_categories %}
+                                    <span class="badge badge-primary" style="font-size: 0.78rem;">{{ t }}</span>
+                                {% endfor %}
+                            </div>
+                        {% endif %}
+                    </div>
+
+                    <a href="{% url 'results:assessment_report' assessment_id=item.assessment.id %}" class="btn btn-primary" style="width: 100%; text-align: center;">
+                        <span>View Detailed Report</span>
+                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+                            <line x1="5" y1="12" x2="19" y2="12"></line>
+                            <polyline points="12 5 19 12 12 19"></polyline>
+                        </svg>
+                    </a>
+                </div>
+            {% endfor %}
+        </div>
+
+    {% else %}
+        <!-- Empty State Announcement Box (Requirement: Clearly explain no assessment results exist until an assessment is completed) -->
+        <div class="empty-state-box">
+            <div class="empty-state-icon">
+                <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
+                    <polyline points="14 2 14 8 20 8"></polyline>
+                    <line x1="16" y1="13" x2="8" y2="13"></line>
+                    <line x1="16" y1="17" x2="8" y2="17"></line>
+                    <polyline points="10 9 9 9 8 9"></polyline>
+                </svg>
+            </div>
+
+            <h2 class="empty-state-title">No Active Assessment Results Yet</h2>
+            <p class="empty-state-desc">
+                Assessment scores, cognitive aptitude breakdowns, and personalized interest roadmaps are generated after a child completes the structured questions.
+            </p>
+
+            <a href="{% url 'assessment:overview' %}" class="btn btn-primary btn-lg">
+                <span>Start an Assessment Now</span>
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+                    <line x1="5" y1="12" x2="19" y2="12"></line>
+                    <polyline points="12 5 19 12 12 19"></polyline>
+                </svg>
+            </a>
+        </div>
+    {% endif %}
+
+    <!-- Report Capabilities & Dimensions Overview -->
+    <div class="section-header" style="margin-top: 3.5rem; margin-bottom: 2rem;">
+        <span class="section-tag teal">Report Framework</span>
+        <h2 class="section-title">What MindBloom Reports Deliver</h2>
+        <p class="section-subtitle">
+            Every completed module produces a multi-dimensional summary designed for constructive, pressure-free guidance.
+        </p>
+    </div>
+
+    <div class="grid-3" style="margin-bottom: 3rem;">
+        <div class="content-card">
+            <h3>1. Aptitude Dimensions</h3>
+            <p>
+                Visual category indicators highlighting natural comfort in logical reasoning, numerical calculation, spatial puzzles, and pattern detection.
+            </p>
+            <div style="margin-top: 1rem; font-size: 0.85rem; color: var(--color-primary); font-weight: 600;">
+                Strength Highlights &bull; Category Breakdowns
+            </div>
+        </div>
+
+        <div class="content-card">
+            <h3>2. Interest Matrix</h3>
+            <p>
+                A mapped distribution showing which activity domains (scientific, creative arts, social, nature, or sports) spark the highest curiosity.
+            </p>
+            <div style="margin-top: 1rem; font-size: 0.85rem; color: var(--color-teal); font-weight: 600;">
+                Curiosity Pathways &bull; Hobby Alignment
+            </div>
+        </div>
+
+        <div class="content-card">
+            <h3>3. Nurturing Guidance</h3>
+            <p>
+                Tailored, non-prescriptive activity ideas, recommended topics, and low-stress learning suggestions for parents and educators.
+            </p>
+            <div style="margin-top: 1rem; font-size: 0.85rem; color: var(--color-primary); font-weight: 600;">
+                Actionable Next Steps &bull; Holistic Support
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}

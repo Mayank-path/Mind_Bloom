@@ -1,0 +1,418 @@
+{% extends "base.html" %}
+
+{% block title %}{{ child.name }}'s Profile &amp; Assessment History | MindBloom{% endblock %}
+
+{% block content %}
+<!-- Breadcrumb / Header Navigation -->
+<section style="background-color: var(--color-surface); border-bottom: 1px solid var(--color-border); padding: 1rem 0;">
+    <div class="container" style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 0.75rem;">
+        <div style="font-size: 0.88rem; color: var(--color-text-muted); display: flex; align-items: center; gap: 0.5rem;">
+            <a href="{% url 'core:dashboard' %}" style="color: var(--color-primary); font-weight: 600;">Dashboard</a>
+            <span>&rsaquo;</span>
+            <span style="color: var(--color-text-main); font-weight: 600;">{{ child.name }}</span>
+        </div>
+        <div style="display: flex; gap: 0.5rem; flex-wrap: wrap;">
+            <a href="{% url 'core:child_edit' child_id=child.id %}" class="btn btn-secondary btn-sm">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"></path>
+                    <path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"></path>
+                </svg>
+                <span>Edit Profile</span>
+            </a>
+            <a href="{% url 'core:child_delete' child_id=child.id %}" class="btn btn-outline btn-sm" style="color: #b91c1c; border-color: #fca5a5;">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <polyline points="3 6 5 6 21 6"></polyline>
+                    <path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path>
+                </svg>
+                <span>Delete</span>
+            </a>
+            <a href="{% url 'assessment:selection' child_id=child.id %}" class="btn btn-primary btn-sm">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <polygon points="5 3 19 12 5 21 5 3"></polygon>
+                </svg>
+                <span>Start Assessment</span>
+            </a>
+        </div>
+    </div>
+</section>
+
+<!-- Section A: Child Information Card -->
+<section class="container" style="margin-top: 2rem; margin-bottom: 2.5rem;">
+    <div class="report-header-card" style="margin-bottom: 2rem;">
+        <div style="display: flex; align-items: flex-start; justify-content: space-between; flex-wrap: wrap; gap: 1.5rem;">
+            <div style="display: flex; align-items: center; gap: 1.5rem; flex-wrap: wrap;">
+                <div class="child-avatar-circle" style="width: 72px; height: 72px; font-size: 2rem;" aria-hidden="true">
+                    {{ child.name|make_list|first|upper }}
+                </div>
+                <div>
+                    <span class="section-tag" style="margin-bottom: 0.35rem;">Learner Profile</span>
+                    <h1 style="font-size: 2rem; margin-bottom: 0.35rem;">{{ child.name }}</h1>
+                    <div style="display: flex; flex-wrap: wrap; gap: 0.65rem; align-items: center;">
+                        <span class="badge badge-teal">{{ child.age_group_display }}</span>
+                        <span style="font-size: 0.88rem; color: var(--color-text-muted);">
+                            Profile Created: {{ child.created_at|date:"F d, Y" }}
+                        </span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Profile Attributes Table/Grid -->
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(130px, 1fr)); gap: 1rem; min-width: 280px; background-color: var(--color-surface-muted); padding: 1.25rem; border-radius: var(--radius-md); border: 1px solid var(--color-border);">
+                <div>
+                    <div style="font-size: 0.75rem; color: var(--color-text-muted); text-transform: uppercase;">Age</div>
+                    <div style="font-weight: 700; font-size: 1.15rem; color: var(--color-text-main);">{{ child.age }} Years</div>
+                </div>
+                <div>
+                    <div style="font-size: 0.75rem; color: var(--color-text-muted); text-transform: uppercase;">Gender</div>
+                    <div style="font-weight: 700; font-size: 1.15rem; color: var(--color-text-main);">{{ child.get_gender_display }}</div>
+                </div>
+                <div>
+                    <div style="font-size: 0.75rem; color: var(--color-text-muted); text-transform: uppercase;">Grade</div>
+                    <div style="font-weight: 700; font-size: 1.15rem; color: var(--color-text-main);">{{ child.grade|default:"Not specified" }}</div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Section B: Assessment Track Summaries (Aptitude & Interest) -->
+<section class="container" style="margin-bottom: 3rem;">
+    <div class="section-header" style="text-align: left; margin-bottom: 1.5rem;">
+        <span class="section-tag">Track Performance</span>
+        <h2 class="section-title">Assessment Track Summaries</h2>
+    </div>
+
+    <div class="grid-2">
+        <!-- Aptitude Summary Card -->
+        <div class="category-card" style="padding: 2rem;">
+            <div class="category-header">
+                <div class="category-icon-box">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2">
+                        <rect x="3" y="3" width="7" height="7"></rect>
+                        <rect x="14" y="3" width="7" height="7"></rect>
+                        <rect x="14" y="14" width="7" height="7"></rect>
+                        <rect x="3" y="14" width="7" height="7"></rect>
+                    </svg>
+                </div>
+                <span class="badge badge-primary">Aptitude Evaluation</span>
+            </div>
+            <h3 style="font-size: 1.25rem; margin-bottom: 1rem;">Cognitive Aptitude Progress</h3>
+
+            <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 0.75rem; background-color: var(--color-surface-muted); padding: 1rem; border-radius: var(--radius-md); margin-bottom: 1.25rem; text-align: center;">
+                <div>
+                    <div style="font-size: 1.4rem; font-weight: 800; color: var(--color-text-main);">{{ apt_total }}</div>
+                    <div style="font-size: 0.75rem; color: var(--color-text-muted);">Attempts</div>
+                </div>
+                <div>
+                    <div style="font-size: 1.4rem; font-weight: 800; color: var(--color-primary);">{{ apt_completed_count }}</div>
+                    <div style="font-size: 0.75rem; color: var(--color-text-muted);">Completed</div>
+                </div>
+                <div>
+                    <div style="font-size: 1.4rem; font-weight: 800; color: var(--color-amber);">{{ apt_pending_count }}</div>
+                    <div style="font-size: 0.75rem; color: var(--color-text-muted);">Pending</div>
+                </div>
+            </div>
+
+            <div style="font-size: 0.9rem; margin-bottom: 0.75rem;">
+                <strong>Latest Result:</strong>
+                {% if apt_latest_result %}
+                    <span style="font-weight: 700; color: var(--color-primary); font-size: 1.1rem; margin-left: 0.35rem;">
+                        {{ apt_latest_result.overall_percentage }}%
+                    </span>
+                    <span style="color: var(--color-text-muted); font-size: 0.85rem;">
+                        ({{ apt_latest_result.correct_answers }} / {{ apt_latest_result.total_questions }} correct)
+                    </span>
+                {% else %}
+                    <span style="color: var(--color-text-muted);">No completed assessment yet</span>
+                {% endif %}
+            </div>
+
+            <div style="font-size: 0.85rem; color: var(--color-text-muted); margin-bottom: 1.5rem;">
+                <strong>Latest Attempt:</strong>
+                {% if apt_latest_date %}{{ apt_latest_date|date:"F d, Y" }}{% else %}Never{% endif %}
+            </div>
+
+            <a href="{% url 'assessment:initiate_assessment' child_id=child.id assessment_type='APTITUDE' %}" class="btn btn-outline btn-sm" style="width: 100%; text-align: center;">
+                <span>Take Aptitude Assessment</span>
+            </a>
+        </div>
+
+        <!-- Interest Summary Card -->
+        <div class="category-card" style="padding: 2rem;">
+            <div class="category-header">
+                <div class="category-icon-box teal">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2">
+                        <path d="M12 2a14.5 14.5 0 0 0 0 20 14.5 14.5 0 0 0 0-20"></path>
+                        <circle cx="12" cy="12" r="4"></circle>
+                    </svg>
+                </div>
+                <span class="badge badge-teal">Interest Profiling</span>
+            </div>
+            <h3 style="font-size: 1.25rem; margin-bottom: 1rem;">Interest &amp; Passion Discovery</h3>
+
+            <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 0.75rem; background-color: var(--color-surface-muted); padding: 1rem; border-radius: var(--radius-md); margin-bottom: 1.25rem; text-align: center;">
+                <div>
+                    <div style="font-size: 1.4rem; font-weight: 800; color: var(--color-text-main);">{{ int_total }}</div>
+                    <div style="font-size: 0.75rem; color: var(--color-text-muted);">Attempts</div>
+                </div>
+                <div>
+                    <div style="font-size: 1.4rem; font-weight: 800; color: var(--color-teal);">{{ int_completed_count }}</div>
+                    <div style="font-size: 0.75rem; color: var(--color-text-muted);">Completed</div>
+                </div>
+                <div>
+                    <div style="font-size: 1.4rem; font-weight: 800; color: var(--color-amber);">{{ int_pending_count }}</div>
+                    <div style="font-size: 0.75rem; color: var(--color-text-muted);">Pending</div>
+                </div>
+            </div>
+
+            <div style="font-size: 0.9rem; margin-bottom: 0.75rem;">
+                <strong>Top Interests:</strong>
+                {% if int_latest_result and int_latest_result.top_interest_categories %}
+                    <span style="font-weight: 600; color: var(--color-teal); margin-left: 0.35rem;">
+                        {{ int_latest_result.top_interest_categories|join:", " }}
+                    </span>
+                {% else %}
+                    <span style="color: var(--color-text-muted);">No completed profile yet</span>
+                {% endif %}
+            </div>
+
+            <div style="font-size: 0.85rem; color: var(--color-text-muted); margin-bottom: 1.5rem;">
+                <strong>Latest Attempt:</strong>
+                {% if int_latest_date %}{{ int_latest_date|date:"F d, Y" }}{% else %}Never{% endif %}
+            </div>
+
+            <a href="{% url 'assessment:initiate_assessment' child_id=child.id assessment_type='INTEREST' %}" class="btn btn-outline btn-sm" style="width: 100%; text-align: center;">
+                <span>Take Interest Assessment</span>
+            </a>
+        </div>
+    </div>
+</section>
+
+<!-- Section C: Assessment Attempt Comparison (Longitudinal) -->
+<section class="container" style="margin-bottom: 3rem;">
+    <div class="section-header" style="text-align: left; margin-bottom: 1.5rem;">
+        <span class="section-tag amber">Longitudinal Insights</span>
+        <h2 class="section-title">Historical Attempt Comparison</h2>
+        <p class="section-subtitle" style="margin: 0;">
+            Compare developmental changes across multiple attempts of the same assessment module over time.
+        </p>
+    </div>
+
+    <!-- Aptitude Comparison Block -->
+    <div class="report-header-card" style="margin-bottom: 2rem;">
+        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1.25rem; flex-wrap: wrap; gap: 0.5rem;">
+            <h3 style="font-size: 1.2rem; display: flex; align-items: center; gap: 0.5rem;">
+                <span class="badge badge-primary">Aptitude</span>
+                <span>Comparative Progress Analysis</span>
+            </h3>
+            {% if apt_comparison %}
+                <span style="font-size: 0.85rem; color: var(--color-text-muted);">
+                    Comparing {{ apt_comparison.prev_date|date:"M d, Y" }} vs {{ apt_comparison.curr_date|date:"M d, Y" }}
+                </span>
+            {% endif %}
+        </div>
+
+        {% if apt_comparison %}
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 1rem; margin-bottom: 1.5rem; background: var(--color-surface-muted); padding: 1.25rem; border-radius: var(--radius-md);">
+                <div>
+                    <div style="font-size: 0.8rem; color: var(--color-text-muted);">Previous Attempt</div>
+                    <div style="font-size: 1.75rem; font-weight: 800; color: var(--color-text-secondary);">{{ apt_comparison.prev_pct }}%</div>
+                </div>
+                <div>
+                    <div style="font-size: 0.8rem; color: var(--color-text-muted);">Latest Attempt</div>
+                    <div style="font-size: 1.75rem; font-weight: 800; color: var(--color-primary);">{{ apt_comparison.curr_pct }}%</div>
+                </div>
+                <div>
+                    <div style="font-size: 0.8rem; color: var(--color-text-muted);">Net Change</div>
+                    <div style="font-size: 1.75rem; font-weight: 800; {% if apt_comparison.diff > 0 %}color: #15803d;{% elif apt_comparison.diff < 0 %}color: #b91c1c;{% else %}color: var(--color-text-muted);{% endif %}">
+                        {% if apt_comparison.diff > 0 %}+{% endif %}{{ apt_comparison.diff }}%
+                    </div>
+                </div>
+            </div>
+
+            <!-- Category-Level Comparison Table -->
+            <div style="overflow-x: auto; margin-bottom: 1rem;">
+                <table style="width: 100%; border-collapse: collapse; font-size: 0.9rem;">
+                    <thead>
+                        <tr style="border-bottom: 2px solid var(--color-border); text-align: left;">
+                            <th style="padding: 0.75rem 0.5rem; color: var(--color-text-muted);">Cognitive Domain</th>
+                            <th style="padding: 0.75rem 0.5rem; color: var(--color-text-muted); text-align: center;">Previous Score</th>
+                            <th style="padding: 0.75rem 0.5rem; color: var(--color-text-muted); text-align: center;">Latest Score</th>
+                            <th style="padding: 0.75rem 0.5rem; color: var(--color-text-muted); text-align: right;">Difference</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for cat in apt_comparison.categories %}
+                            <tr style="border-bottom: 1px solid var(--color-border);">
+                                <td style="padding: 0.75rem 0.5rem; font-weight: 600;">{{ cat.category }}</td>
+                                <td style="padding: 0.75rem 0.5rem; text-align: center;">{{ cat.prev_pct }}%</td>
+                                <td style="padding: 0.75rem 0.5rem; text-align: center; font-weight: 700; color: var(--color-primary);">{{ cat.curr_pct }}%</td>
+                                <td style="padding: 0.75rem 0.5rem; text-align: right; font-weight: 700; {% if cat.diff > 0 %}color: #15803d;{% elif cat.diff < 0 %}color: #b91c1c;{% else %}color: var(--color-text-muted);{% endif %}">
+                                    {% if cat.diff > 0 %}+{% endif %}{{ cat.diff }}%
+                                </td>
+                            </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+
+            <div class="alert alert-info" style="font-size: 0.85rem; padding: 0.85rem 1rem;">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="width: 18px; height: 18px; flex-shrink: 0;"><circle cx="12" cy="12" r="10"></circle><line x1="12" y1="16" x2="12" y2="12"></line><line x1="12" y1="8" x2="12.01" y2="8"></line></svg>
+                <div>
+                    <strong>Exploratory Growth Notice:</strong> Variations between attempts reflect normal cognitive development, day-to-day engagement, and practice familiarity rather than fixed intelligence.
+                </div>
+            </div>
+        {% elif apt_completed_count == 1 %}
+            <div style="background-color: var(--color-surface-muted); padding: 1.5rem; border-radius: var(--radius-md); text-align: center; color: var(--color-text-muted);">
+                <p style="margin-bottom: 0.5rem; font-weight: 600; color: var(--color-text-secondary);">One Aptitude Assessment Completed</p>
+                <p style="font-size: 0.88rem; margin: 0;">Complete another Aptitude assessment in the future to unlock longitudinal score progression and category comparisons.</p>
+            </div>
+        {% else %}
+            <div style="background-color: var(--color-surface-muted); padding: 1.5rem; border-radius: var(--radius-md); text-align: center; color: var(--color-text-muted);">
+                <p style="margin: 0; font-size: 0.88rem;">No completed Aptitude assessments to compare yet. Start with your child's first assessment above.</p>
+            </div>
+        {% endif %}
+    </div>
+
+    <!-- Interest Comparison Block -->
+    <div class="report-header-card">
+        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1.25rem; flex-wrap: wrap; gap: 0.5rem;">
+            <h3 style="font-size: 1.2rem; display: flex; align-items: center; gap: 0.5rem;">
+                <span class="badge badge-teal">Interest</span>
+                <span>Preference Shift Comparison</span>
+            </h3>
+            {% if int_comparison %}
+                <span style="font-size: 0.85rem; color: var(--color-text-muted);">
+                    Comparing {{ int_comparison.prev_date|date:"M d, Y" }} vs {{ int_comparison.curr_date|date:"M d, Y" }}
+                </span>
+            {% endif %}
+        </div>
+
+        {% if int_comparison %}
+            <div style="overflow-x: auto; margin-bottom: 1rem;">
+                <table style="width: 100%; border-collapse: collapse; font-size: 0.9rem;">
+                    <thead>
+                        <tr style="border-bottom: 2px solid var(--color-border); text-align: left;">
+                            <th style="padding: 0.75rem 0.5rem; color: var(--color-text-muted);">Interest Domain</th>
+                            <th style="padding: 0.75rem 0.5rem; color: var(--color-text-muted); text-align: center;">Previous Share</th>
+                            <th style="padding: 0.75rem 0.5rem; color: var(--color-text-muted); text-align: center;">Latest Share</th>
+                            <th style="padding: 0.75rem 0.5rem; color: var(--color-text-muted); text-align: right;">Preference Shift</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for cat in int_comparison.categories %}
+                            <tr style="border-bottom: 1px solid var(--color-border);">
+                                <td style="padding: 0.75rem 0.5rem; font-weight: 600;">{{ cat.category }}</td>
+                                <td style="padding: 0.75rem 0.5rem; text-align: center;">{{ cat.prev_pct }}%</td>
+                                <td style="padding: 0.75rem 0.5rem; text-align: center; font-weight: 700; color: var(--color-teal);">{{ cat.curr_pct }}%</td>
+                                <td style="padding: 0.75rem 0.5rem; text-align: right; font-weight: 700; {% if cat.diff > 0 %}color: #0f766e;{% elif cat.diff < 0 %}color: var(--color-text-muted);{% else %}color: var(--color-text-muted);{% endif %}">
+                                    {% if cat.diff > 0 %}+{% endif %}{{ cat.diff }}%
+                                </td>
+                            </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+
+            <div class="alert alert-info" style="font-size: 0.85rem; padding: 0.85rem 1rem;">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="width: 18px; height: 18px; flex-shrink: 0;"><circle cx="12" cy="12" r="10"></circle><line x1="12" y1="16" x2="12" y2="12"></line><line x1="12" y1="8" x2="12.01" y2="8"></line></svg>
+                <div>
+                    <strong>Curiosity Evolution Notice:</strong> Preference shifts reflect evolving interests, new hobbies, and expanding world exposure as children mature.
+                </div>
+            </div>
+        {% elif int_completed_count == 1 %}
+            <div style="background-color: var(--color-surface-muted); padding: 1.5rem; border-radius: var(--radius-md); text-align: center; color: var(--color-text-muted);">
+                <p style="margin-bottom: 0.5rem; font-weight: 600; color: var(--color-text-secondary);">One Interest Profile Completed</p>
+                <p style="font-size: 0.88rem; margin: 0;">Complete another Interest evaluation in the future to track how your child's passions and curiosities evolve over time.</p>
+            </div>
+        {% else %}
+            <div style="background-color: var(--color-surface-muted); padding: 1.5rem; border-radius: var(--radius-md); text-align: center; color: var(--color-text-muted);">
+                <p style="margin: 0; font-size: 0.88rem;">No completed Interest evaluations to compare yet. Start with your child's first assessment above.</p>
+            </div>
+        {% endif %}
+    </div>
+</section>
+
+<!-- Section D: Complete Assessment History Table -->
+<section class="container" style="margin-bottom: 4rem;">
+    <div class="section-header" style="text-align: left; margin-bottom: 1.5rem;">
+        <span class="section-tag teal">Chronological Records</span>
+        <h2 class="section-title">Assessment History</h2>
+        <p class="section-subtitle" style="margin: 0;">
+            All assessment attempts recorded for {{ child.name }}, ordered newest first.
+        </p>
+    </div>
+
+    {% if history_items %}
+        <div style="background: var(--color-surface); border: 1px solid var(--color-border); border-radius: var(--radius-lg); overflow: hidden; box-shadow: var(--shadow-card);">
+            <div style="overflow-x: auto;">
+                <table style="width: 100%; border-collapse: collapse; font-size: 0.92rem; text-align: left;">
+                    <thead>
+                        <tr style="background-color: var(--color-surface-muted); border-bottom: 1px solid var(--color-border);">
+                            <th style="padding: 1rem 1.25rem; font-weight: 700; color: var(--color-text-secondary);">Assessment Track</th>
+                            <th style="padding: 1rem 1.25rem; font-weight: 700; color: var(--color-text-secondary);">Date</th>
+                            <th style="padding: 1rem 1.25rem; font-weight: 700; color: var(--color-text-secondary);">Status</th>
+                            <th style="padding: 1rem 1.25rem; font-weight: 700; color: var(--color-text-secondary);">Result</th>
+                            <th style="padding: 1rem 1.25rem; font-weight: 700; color: var(--color-text-secondary); text-align: right;">Action</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for item in history_items %}
+                            <tr style="border-bottom: 1px solid var(--color-border); transition: background-color var(--transition-fast);">
+                                <td style="padding: 1.15rem 1.25rem;">
+                                    <div style="display: flex; align-items: center; gap: 0.65rem;">
+                                        <span class="badge {% if item.assessment.assessment_type == 'APTITUDE' %}badge-primary{% else %}badge-teal{% endif %}" style="font-size: 0.78rem;">
+                                            {{ item.assessment.get_assessment_type_display }}
+                                        </span>
+                                    </div>
+                                </td>
+                                <td style="padding: 1.15rem 1.25rem; color: var(--color-text-secondary);">
+                                    {{ item.assessment.created_at|date:"M d, Y \a\\t h:i A" }}
+                                </td>
+                                <td style="padding: 1.15rem 1.25rem;">
+                                    {% if item.is_completed %}
+                                        <span class="badge badge-teal" style="font-size: 0.78rem;">Completed</span>
+                                    {% else %}
+                                        <span class="badge badge-amber" style="font-size: 0.78rem;">Pending</span>
+                                    {% endif %}
+                                </td>
+                                <td style="padding: 1.15rem 1.25rem; font-weight: 600; color: var(--color-text-main);">
+                                    {{ item.result_display }}
+                                </td>
+                                <td style="padding: 1.15rem 1.25rem; text-align: right;">
+                                    {% if item.is_completed %}
+                                        <a href="{% url 'results:assessment_report' assessment_id=item.assessment.id %}" class="btn btn-outline btn-sm">
+                                            <span>View Report</span>
+                                            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                                <line x1="5" y1="12" x2="19" y2="12"></line>
+                                                <polyline points="12 5 19 12 12 19"></polyline>
+                                            </svg>
+                                        </a>
+                                    {% else %}
+                                        <a href="{% url 'assessment:take' assessment_id=item.assessment.id %}" class="btn btn-primary btn-sm">
+                                            <span>Continue</span>
+                                            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                                <polygon points="5 3 19 12 5 21 5 3"></polygon>
+                                            </svg>
+                                        </a>
+                                    {% endif %}
+                                </td>
+                            </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    {% else %}
+        <div class="completion-card" style="padding: 3rem 2rem; max-width: 600px; margin: 1rem auto; text-align: center;">
+            <p style="color: var(--color-text-muted); font-size: 0.95rem; margin-bottom: 1.5rem;">
+                No assessments have been recorded for {{ child.name }} yet. Start an aptitude evaluation or interest discovery questionnaire to see results here.
+            </p>
+            <a href="{% url 'assessment:selection' child_id=child.id %}" class="btn btn-primary">
+                <span>Start First Assessment</span>
+            </a>
+        </div>
+    {% endif %}
+</section>
+{% endblock %}
+

@@ -1,0 +1,125 @@
+{% extends "base.html" %}
+
+{% block title %}Question {{ question_index }} of {{ total_questions }} &bull; {{ assessment.get_assessment_type_display }}{% endblock %}
+
+{% block content %}
+<section class="container" style="padding-top: 1rem;">
+    <div class="questionnaire-wrapper">
+        <!-- Top Metadata & Context Bar -->
+        <div class="questionnaire-nav-meta">
+            <div class="child-indicator-pill">
+                <span class="child-indicator-dot" aria-hidden="true"></span>
+                <span>Active Learner: <strong>{{ child.name }}</strong> (Age: {{ child.age }}) &bull; <span class="badge badge-teal" style="font-size: 0.78rem;">{{ age_group_label }}</span></span>
+            </div>
+            <div>
+                <span class="question-counter-badge">
+                    Question {{ question_index }} of {{ total_questions }} &bull; {{ progress_percent }}% Complete
+                </span>
+            </div>
+        </div>
+
+        <!-- Visual Progress Bar -->
+        <div class="progress-track" role="progressbar" aria-valuenow="{{ progress_percent }}" aria-valuemin="0" aria-valuemax="100" aria-label="Assessment Progress">
+            <div class="progress-bar-fill" style="width: {{ progress_percent }}%;"></div>
+        </div>
+
+        <!-- Active Question Card -->
+        <div class="question-card">
+            <!-- Question Category Tag & Optional Difficulty for Aptitude -->
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1rem; flex-wrap: wrap; gap: 0.5rem;">
+                <div style="display: flex; align-items: center; gap: 0.5rem; flex-wrap: wrap;">
+                    <span class="question-domain-tag">
+                        {{ assessment.get_assessment_type_display }} &bull; {{ question.category }}
+                    </span>
+                    {% if difficulty_display %}
+                        <span class="badge difficulty-badge {% if question.difficulty == 'EASY' %}badge-teal{% elif question.difficulty == 'HARD' %}badge-amber{% else %}badge-primary{% endif %}" style="font-size: 0.75rem;">
+                            Difficulty: {{ difficulty_display }}
+                        </span>
+                    {% endif %}
+                </div>
+                <span style="font-size: 0.85rem; color: var(--color-text-muted);">
+                    Answered: {{ answered_count }} / {{ total_questions }}
+                </span>
+            </div>
+
+            <!-- Question Prompt Text -->
+            <h2 class="question-prompt">{{ question.question_text }}</h2>
+
+            <!-- Validation Error Alert if triggered -->
+            {% if form_error %}
+                <div class="alert alert-danger" style="margin-bottom: 1.5rem;">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <circle cx="12" cy="12" r="10"></circle>
+                        <line x1="12" y1="8" x2="12" y2="12"></line>
+                        <line x1="12" y1="16" x2="12.01" y2="16"></line>
+                    </svg>
+                    <div>{{ form_error }}</div>
+                </div>
+            {% endif %}
+
+            <!-- Question Answer Form -->
+            <form method="post" action="{% url 'assessment:question' assessment_id=assessment.id question_index=question_index %}" id="questionnaireForm">
+                {% csrf_token %}
+
+                <!-- Options Stack -->
+                <div class="options-stack" role="radiogroup" aria-label="Select an option">
+                    {% for opt_key, opt_text in options_data %}
+                        <div>
+                            <input 
+                                type="radio" 
+                                name="selected_option" 
+                                id="opt_{{ opt_key }}" 
+                                value="{{ opt_key }}" 
+                                class="option-choice-input"
+                                {% if selected_value == opt_key %}checked{% endif %}
+                            >
+                            <label for="opt_{{ opt_key }}" class="option-choice-label">
+                                <span class="option-letter-badge">{{ opt_key }}</span>
+                                <span class="option-text-span">{{ opt_text }}</span>
+                            </label>
+                        </div>
+                    {% endfor %}
+                </div>
+
+                <!-- Navigation & Action Buttons Bar -->
+                <div class="questionnaire-actions-bar">
+                    <!-- Previous Button -->
+                    {% if not is_first %}
+                        <button type="submit" name="action" value="prev" class="btn btn-secondary">
+                            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+                                <line x1="19" y1="12" x2="5" y2="12"></line>
+                                <polyline points="12 19 5 12 12 5"></polyline>
+                            </svg>
+                            <span>Previous Question</span>
+                        </button>
+                    {% else %}
+                        <div></div>
+                    {% endif %}
+
+                    <!-- Next or Submit Button -->
+                    <div style="display: flex; gap: 0.75rem;">
+                        {% if not is_last %}
+                            <button type="submit" name="action" value="next" class="btn btn-primary">
+                                <span>Save &amp; Next</span>
+                                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+                                    <line x1="5" y1="12" x2="19" y2="12"></line>
+                                    <polyline points="12 5 19 12 12 19"></polyline>
+                                </svg>
+                            </button>
+                        {% else %}
+                            <!-- Final Question Submit Button (Prevent accidental premature submission) -->
+                            <button type="submit" name="action" value="submit" class="btn btn-teal btn-lg">
+                                <span>Complete &amp; Submit Assessment</span>
+                                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+                                    <polyline points="20 6 9 17 4 12"></polyline>
+                                </svg>
+                            </button>
+                        {% endif %}
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</section>
+{% endblock %}
+

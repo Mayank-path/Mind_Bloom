@@ -1,0 +1,97 @@
+{% extends "base.html" %}
+
+{% block title %}Aptitude Assessment Introduction | MindBloom{% endblock %}
+
+{% block content %}
+<section class="page-hero">
+    <div class="container">
+        <span class="section-tag">Aptitude Track</span>
+        <h1 class="page-hero-title">Cognitive &amp; Aptitude Assessment</h1>
+        <p class="page-hero-lead">
+            Learn how MindBloom evaluates logical deductions, numerical intuition, and visual-spatial reasoning through constructive problem-solving exercises.
+        </p>
+    </div>
+</section>
+
+<section class="container">
+    <div class="grid-3" style="margin-bottom: 2.5rem;">
+        <div class="category-card">
+            <h3 class="category-title">1. Logical Reasoning</h3>
+            <p class="category-desc">
+                Focuses on deducing sequences, spotting relational analogies, and applying step-by-step rules to reach valid conclusions.
+            </p>
+            <div style="font-size: 0.85rem; color: var(--color-primary); font-weight: 600;">
+                Pattern Completion &bull; Syllogistic Deductions
+            </div>
+        </div>
+
+        <div class="category-card">
+            <h3 class="category-title">2. Numerical Ability</h3>
+            <p class="category-desc">
+                Observes arithmetic intuition, numerical series extrapolation, and comfort with quantitative relationships.
+            </p>
+            <div style="font-size: 0.85rem; color: var(--color-primary); font-weight: 600;">
+                Number Patterns &bull; Applied Word Problems
+            </div>
+        </div>
+
+        <div class="category-card">
+            <h3 class="category-title">3. Spatial Reasoning</h3>
+            <p class="category-desc">
+                Tests mental manipulation of two-dimensional shapes, symmetry identification, and 3D folding perspectives.
+            </p>
+            <div style="font-size: 0.85rem; color: var(--color-primary); font-weight: 600;">
+                Shape Transformations &bull; Mental Rotation
+            </div>
+        </div>
+    </div>
+
+    <!-- Sample Question Format Preview -->
+    <div class="content-card">
+        <h3>Sample Question Format Preview</h3>
+        <p>Questions are formatted cleanly with clear visual prompts and unambiguous multiple-choice answers:</p>
+
+        <div class="sample-question-card">
+            <span class="sample-badge">Sample Prompt &bull; Logical Pattern</span>
+            <div class="sample-question-title">
+                Examine the sequence below: <strong>Triangle &rarr; Square &rarr; Pentagon &rarr; [ ? ]</strong><br>
+                Which polygon logically follows in this shape series?
+            </div>
+
+            <div class="sample-options-grid">
+                <div class="sample-option">
+                    <span class="option-tag">A.</span> Circle (0 sides)
+                </div>
+                <div class="sample-option" style="border-color: var(--color-teal); background-color: var(--color-teal-bg);">
+                    <span class="option-tag" style="color: var(--color-teal);">B.</span> Hexagon (6 sides) &mdash; <em>Target Sequence</em>
+                </div>
+                <div class="sample-option">
+                    <span class="option-tag">C.</span> Octagon (8 sides)
+                </div>
+                <div class="sample-option">
+                    <span class="option-tag">D.</span> Rectangle (4 sides)
+                </div>
+            </div>
+        </div>
+
+        <p style="font-size: 0.88rem; color: var(--color-text-muted);">
+            <em>Note: The full interactive question player will be introduced in subsequent questionnaire modules.</em>
+        </p>
+    </div>
+
+    <!-- Navigation Actions -->
+    <div style="display: flex; gap: 1rem; flex-wrap: wrap; margin-top: 2rem;">
+        <a href="{% url 'assessment:overview' %}" class="btn btn-secondary">
+            &larr; Back to Assessments Overview
+        </a>
+        <a href="{% url 'assessment:interest_intro' %}" class="btn btn-teal">
+            <span>Explore Interest Profiling Track</span>
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+                <line x1="5" y1="12" x2="19" y2="12"></line>
+                <polyline points="12 5 19 12 12 19"></polyline>
+            </svg>
+        </a>
+    </div>
+</section>
+{% endblock %}
+

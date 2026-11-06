@@ -1,0 +1,77 @@
+{% extends "base.html" %}
+
+{% block title %}Contact & Inquiries | MindBloom{% endblock %}
+
+{% block content %}
+<section class="page-hero">
+    <div class="container">
+        <span class="section-tag">Academic Inquiries</span>
+        <h1 class="page-hero-title">Contact &amp; Project Information</h1>
+        <p class="page-hero-lead">
+            MindBloom is an academic semester project. For project evaluations, academic reviews, or inquiries, refer to the details below.
+        </p>
+    </div>
+</section>
+
+<section class="container">
+    <div class="grid-2">
+        <!-- Academic Department Details -->
+        <div class="content-card">
+            <h3>Department &amp; Laboratory</h3>
+            <p style="margin-bottom: 1.25rem;">
+                MindBloom was conceived and implemented within the undergraduate computer science curriculum for educational technology demonstration.
+            </p>
+
+            <div style="display: flex; flex-direction: column; gap: 0.85rem; font-size: 0.95rem;">
+                <div>
+                    <strong>Institution:</strong> College Department of Computer Science &amp; Engineering
+                </div>
+                <div>
+                    <strong>Program:</strong> Bachelor of Technology (B.Tech CSE)
+                </div>
+                <div>
+                    <strong>Project Type:</strong> Sixth-Semester Software Project
+                </div>
+                <div>
+                    <strong>Laboratory:</strong> Software Engineering &amp; Web Systems Lab
+                </div>
+                <div>
+                    <strong>Email:</strong> academic.inquiry@mindbloom.local (Demonstration)
+                </div>
+            </div>
+        </div>
+
+        <!-- Informational Inquiry Form Card -->
+        <div class="content-card">
+            <h3>Academic Inquiries Form</h3>
+            <p style="font-size: 0.9rem; color: var(--color-text-muted); margin-bottom: 1.25rem;">
+                <em>Notice: For academic evaluation inquiries, project reviews, and feedback regarding MindBloom, please direct inquiries to our academic project email above.</em>
+            </p>
+
+            <form onsubmit="return false;" style="display: flex; flex-direction: column; gap: 1rem;">
+                <div>
+                    <label for="contact_name" style="display: block; font-weight: 600; font-size: 0.88rem; margin-bottom: 0.35rem;">Full Name</label>
+                    <input type="text" id="contact_name" placeholder="Evaluator / Parent / Educator Name" disabled style="width: 100%; padding: 0.65rem 0.85rem; border: 1px solid var(--color-border); border-radius: var(--radius-md); background-color: var(--color-surface-muted); color: var(--color-text-muted);">
+                </div>
+
+                <div>
+                    <label for="contact_email" style="display: block; font-weight: 600; font-size: 0.88rem; margin-bottom: 0.35rem;">Email Address</label>
+                    <input type="email" id="contact_email" placeholder="inquiry@college.edu" disabled style="width: 100%; padding: 0.65rem 0.85rem; border: 1px solid var(--color-border); border-radius: var(--radius-md); background-color: var(--color-surface-muted); color: var(--color-text-muted);">
+                </div>
+
+                <div>
+                    <label for="contact_msg" style="display: block; font-weight: 600; font-size: 0.88rem; margin-bottom: 0.35rem;">Message / Inquiry</label>
+                    <textarea id="contact_msg" rows="3" placeholder="Academic inquiry or evaluation notes..." disabled style="width: 100%; padding: 0.65rem 0.85rem; border: 1px solid var(--color-border); border-radius: var(--radius-md); background-color: var(--color-surface-muted); color: var(--color-text-muted); resize: none;"></textarea>
+                </div>
+
+                <div>
+                    <button type="button" class="btn btn-secondary" style="opacity: 0.7; cursor: not-allowed;">
+                        Please Contact Via Project Email
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+</section>
+{% endblock %}
+

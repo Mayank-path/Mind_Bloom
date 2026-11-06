@@ -1,0 +1,67 @@
+{% extends "base.html" %}
+
+{% block title %}About | MindBloom - Child Assessment System{% endblock %}
+
+{% block content %}
+<section class="page-hero">
+    <div class="container">
+        <span class="section-tag">About MindBloom</span>
+        <h1 class="page-hero-title">Empowering Children Through Positive Self-Discovery</h1>
+        <p class="page-hero-lead">
+            MindBloom is an academic web application created to identify and nurture a child's unique cognitive strengths, learning preferences, and intrinsic areas of interest.
+        </p>
+    </div>
+</section>
+
+<section class="container">
+    <div class="content-card">
+        <h3>Our Core Philosophy</h3>
+        <p>
+            Traditional scholastic evaluations often measure rote memory or speed under pressure. MindBloom shifts the focus toward <strong>strength-based exploration</strong>. Every child exhibits distinctive cognitive patterns—some think in visual spaces, others in numbers, language, or social interactions.
+        </p>
+        <p style="margin-top: 1rem;">
+            By presenting age-tailored questions in a welcoming, low-stress environment, MindBloom aims to assist parents and teachers in observing potential early on, opening doors to tailored learning pathways and enriching extracurricular opportunities.
+        </p>
+    </div>
+
+    <div class="grid-2" style="margin-bottom: 2rem;">
+        <div class="content-card">
+            <h3>The Assessment Framework</h3>
+            <p>Our assessment model is divided into two complementary dimensions:</p>
+            <ul class="content-list">
+                <li><strong>Cognitive Aptitude:</strong> Evaluates problem-solving tendencies across logical deduction, numerical fluency, and spatial reasoning.</li>
+                <li><strong>Interest &amp; Passion Mapping:</strong> Profiles curious engagement across scientific inquiry, creative arts, physical exploration, and interpersonal teamwork.</li>
+            </ul>
+        </div>
+
+        <div class="content-card">
+            <h3>Academic Project Context</h3>
+            <p>
+                This application has been developed as a <strong>B.Tech Computer Science &amp; Engineering Semester Project</strong>.
+            </p>
+            <ul class="content-list">
+                <li><strong>Architecture:</strong> Python 3.11 with Django 5.2 Model-View-Template (MVT).</li>
+                <li><strong>Design System:</strong> Pure custom CSS3 and semantic HTML5 with zero bloated external UI frameworks.</li>
+                <li><strong>Database:</strong> SQLite database following standard relational schema design.</li>
+            </ul>
+        </div>
+    </div>
+
+    <div class="content-card" style="background: linear-gradient(135deg, var(--color-primary-bg) 0%, var(--color-teal-bg) 100%); border-color: #cbd5e1;">
+        <h3>Responsible Educational Guidance</h3>
+        <p>
+            MindBloom is strictly an educational observation tool designed for supportive reflection. It does not issue clinical diagnoses, IQ metrics, or psychiatric assessments. We emphasize that every child develops at their own unique pace, and diverse strengths are equally valuable.
+        </p>
+        <div style="margin-top: 1.5rem;">
+            <a href="{% url 'assessment:overview' %}" class="btn btn-primary">
+                <span>Explore the Assessments</span>
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+                    <line x1="5" y1="12" x2="19" y2="12"></line>
+                    <polyline points="12 5 19 12 12 19"></polyline>
+                </svg>
+            </a>
+        </div>
+    </div>
+</section>
+{% endblock %}
+

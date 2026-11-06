@@ -1,0 +1,98 @@
+{% extends "base.html" %}
+
+{% block title %}Interest Assessment Introduction | MindBloom{% endblock %}
+
+{% block content %}
+<section class="page-hero">
+    <div class="container">
+        <span class="section-tag teal">Interest Track</span>
+        <h1 class="page-hero-title">Interest &amp; Curiosity Profiling</h1>
+        <p class="page-hero-lead">
+            Discover what captivates a child's imagination, drives their exploratory energy, and reveals natural affinities across arts, sciences, and teamwork.
+        </p>
+    </div>
+</section>
+
+<section class="container">
+    <div class="grid-3" style="margin-bottom: 2.5rem;">
+        <div class="category-card">
+            <h3 class="category-title">1. Creative &amp; Visual Arts</h3>
+            <p class="category-desc">
+                Observes preference for visual storytelling, color theory, music, imaginative crafting, and independent creative expression.
+            </p>
+            <div style="font-size: 0.85rem; color: var(--color-teal); font-weight: 600;">
+                Drawing &bull; Storycraft &bull; Performing Arts
+            </div>
+        </div>
+
+        <div class="category-card">
+            <h3 class="category-title">2. Scientific &amp; STEM Inquiry</h3>
+            <p class="category-desc">
+                Explores intrinsic interest in biological ecosystems, astronomical wonders, coding mechanics, robotics, and hands-on experiments.
+            </p>
+            <div style="font-size: 0.85rem; color: var(--color-teal); font-weight: 600;">
+                Nature &bull; Technology &bull; Experiments
+            </div>
+        </div>
+
+        <div class="category-card">
+            <h3 class="category-title">3. Social &amp; Collaborative</h3>
+            <p class="category-desc">
+                Measures comfort with collaborative games, community projects, empathetic listening, leadership, and group dialogue.
+            </p>
+            <div style="font-size: 0.85rem; color: var(--color-teal); font-weight: 600;">
+                Teamwork &bull; Empathy &bull; Peer Leadership
+            </div>
+        </div>
+    </div>
+
+    <!-- Sample Scenario Format Preview -->
+    <div class="content-card">
+        <h3>Sample Scenario Prompt Preview</h3>
+        <p>Interest profiling uses scenario prompts where all options are valued equally, emphasizing genuine interest over performance pressure:</p>
+
+        <div class="sample-question-card">
+            <span class="sample-badge" style="background-color: var(--color-teal-bg); color: var(--color-teal);">
+                Sample Scenario &bull; Weekend Discovery
+            </span>
+            <div class="sample-question-title">
+                "Imagine you have a free Saturday to invent or create anything you wish in a community workshop. Which activity would you choose first?"
+            </div>
+
+            <div class="sample-options-grid">
+                <div class="sample-option">
+                    <span class="option-tag" style="color: var(--color-teal);">1.</span> Build a motorized robot or model solar system.
+                </div>
+                <div class="sample-option">
+                    <span class="option-tag" style="color: var(--color-teal);">2.</span> Paint a mural or write an illustrated fantasy comic book.
+                </div>
+                <div class="sample-option">
+                    <span class="option-tag" style="color: var(--color-teal);">3.</span> Organize a collaborative board game tournament for friends.
+                </div>
+                <div class="sample-option">
+                    <span class="option-tag" style="color: var(--color-teal);">4.</span> Plant an outdoor herb garden and record insect behaviors.
+                </div>
+            </div>
+        </div>
+
+        <p style="font-size: 0.88rem; color: var(--color-text-muted);">
+            <em>Scoring dynamically maps answers to multi-axis interest profiles without judging right or wrong.</em>
+        </p>
+    </div>
+
+    <!-- Navigation Actions -->
+    <div style="display: flex; gap: 1rem; flex-wrap: wrap; margin-top: 2rem;">
+        <a href="{% url 'assessment:overview' %}" class="btn btn-secondary">
+            &larr; Back to Assessments Overview
+        </a>
+        <a href="{% url 'assessment:aptitude_intro' %}" class="btn btn-primary">
+            <span>Explore Aptitude Evaluation Track</span>
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+                <line x1="5" y1="12" x2="19" y2="12"></line>
+                <polyline points="12 5 19 12 12 19"></polyline>
+            </svg>
+        </a>
+    </div>
+</section>
+{% endblock %}
+

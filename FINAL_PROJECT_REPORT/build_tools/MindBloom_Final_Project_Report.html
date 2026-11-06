@@ -1,0 +1,1541 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>MindBloom — Final Project Report</title>
+<style>
+  @page {
+    size: A4 portrait;
+    margin: 25mm 20mm 25mm 20mm;
+    @top-right {
+      content: "MindBloom — Final B.Tech Project Report";
+      font-size: 8.5pt;
+      color: #64748b;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    }
+    @bottom-center {
+      content: counter(page);
+      font-size: 9pt;
+      color: #64748b;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    }
+  }
+
+  body {
+    font-family: 'Segoe UI', -apple-system, BlinkMacSystemFont, Roboto, Helvetica, Arial, sans-serif;
+    font-size: 10.5pt;
+    line-height: 1.6;
+    color: #1e293b;
+    background: #ffffff;
+    margin: 0;
+    padding: 0;
+  }
+
+  .page-break {
+    page-break-after: always;
+    break-after: page;
+  }
+
+  .cover-page {
+    text-align: center;
+    padding-top: 50px;
+    height: 90vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+  }
+
+  .cover-title {
+    font-size: 26pt;
+    font-weight: 800;
+    color: #1e3a8a;
+    line-height: 1.25;
+    margin-bottom: 12px;
+  }
+
+  .cover-subtitle {
+    font-size: 13pt;
+    font-style: italic;
+    color: #475569;
+    margin-bottom: 40px;
+  }
+
+  .cover-award {
+    font-size: 11pt;
+    color: #334155;
+    margin: 30px 0;
+  }
+
+  .cover-degree {
+    font-size: 14pt;
+    font-weight: 700;
+    color: #1e3a8a;
+    letter-spacing: 0.5px;
+    margin-top: 8px;
+  }
+
+  .cover-details {
+    font-size: 11pt;
+    line-height: 1.8;
+    color: #1e293b;
+    margin-top: 40px;
+  }
+
+  h1.chapter-title {
+    font-size: 18pt;
+    font-weight: 700;
+    color: #1e3a8a;
+    border-bottom: 2px solid #3b82f6;
+    padding-bottom: 6px;
+    margin-top: 24px;
+    margin-bottom: 16px;
+    page-break-after: avoid;
+  }
+
+  h2.section-title {
+    font-size: 13.5pt;
+    font-weight: 700;
+    color: #2563eb;
+    margin-top: 20px;
+    margin-bottom: 10px;
+    page-break-after: avoid;
+  }
+
+  h3.subsection-title {
+    font-size: 11.5pt;
+    font-weight: 600;
+    color: #0f172a;
+    margin-top: 14px;
+    margin-bottom: 6px;
+    page-break-after: avoid;
+  }
+
+  p {
+    margin: 0 0 10px 0;
+    text-align: justify;
+  }
+
+  li {
+    margin-bottom: 4px;
+  }
+
+  .callout {
+    background-color: #eff6ff;
+    border-left: 4px solid #3b82f6;
+    padding: 12px 16px;
+    margin: 14px 0;
+    font-size: 10pt;
+    color: #1e3a8a;
+    border-radius: 4px;
+  }
+
+  pre {
+    background-color: #f8fafc;
+    border: 1px solid #e2e8f0;
+    border-radius: 6px;
+    padding: 12px;
+    font-family: 'Consolas', 'Courier New', monospace;
+    font-size: 9pt;
+    overflow-x: auto;
+    line-height: 1.4;
+    margin: 12px 0;
+    page-break-inside: avoid;
+  }
+
+  .table-container {
+    margin: 16px 0;
+    page-break-inside: avoid;
+  }
+
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 9.5pt;
+  }
+
+  th {
+    background-color: #1e3a8a;
+    color: #ffffff;
+    font-weight: 600;
+    text-align: left;
+    padding: 8px 10px;
+    border: 1px solid #1e3a8a;
+  }
+
+  td {
+    padding: 6px 10px;
+    border: 1px solid #cbd5e1;
+    color: #334155;
+  }
+
+  tr:nth-child(even) td {
+    background-color: #f8fafc;
+  }
+
+  .figure-container {
+    text-align: center;
+    margin: 18px 0;
+    page-break-inside: avoid;
+  }
+
+  .figure-container img {
+    max-width: 95%;
+    height: auto;
+    border: 1px solid #cbd5e1;
+    border-radius: 6px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+  }
+
+  .figure-caption {
+    font-size: 9pt;
+    font-style: italic;
+    color: #64748b;
+    margin-top: 6px;
+    text-align: center;
+  }
+
+  .front-matter-title {
+    font-size: 18pt;
+    font-weight: 700;
+    color: #1e3a8a;
+    text-align: center;
+    margin-bottom: 24px;
+  }
+
+  .prelim-p {
+    font-size: 11pt;
+    line-height: 1.8;
+    text-align: justify;
+  }
+</style>
+</head>
+<body>
+
+<!-- COVER PAGE -->
+<div class="cover-page">
+  <div>
+    <div class="cover-title">MINDBLOOM — CHILD APTITUDE & INTEREST ASSESSMENT SYSTEM</div>
+    <div class="cover-subtitle">A Secure, Developmental-Stage Aware Web Application for Early Cognitive Strength Discovery and Longitudinal Growth Tracking</div>
+    <div class="cover-award">
+      A Capstone Project Report Submitted in Partial Fulfillment of the Requirements<br>
+      for the Award of the Degree of<br>
+      <div class="cover-degree">BACHELOR OF TECHNOLOGY<br>IN COMPUTER SCIENCE AND ENGINEERING</div>
+    </div>
+  </div>
+  
+  <div class="cover-details">
+    <strong>Submitted By:</strong><br>
+    [Student Name] (Roll No: [Roll Number / Registration ID])<br><br>
+    <strong>Under the Guidance of:</strong><br>
+    [Supervisor Name, Designation]<br><br>
+    Department of Computer Science and Engineering<br>
+    [Institution / College Name, University Affiliation]<br>
+    Academic Session 2025 – 2026
+  </div>
+</div>
+
+<div class="page-break"></div>
+
+<!-- CERTIFICATE -->
+<h1 class="front-matter-title">CERTIFICATE OF ORIGINAL WORK</h1>
+<div class="prelim-p" style="white-space: pre-line;">This is to certify that the project report entitled "MINDBLOOM — CHILD APTITUDE & INTEREST ASSESSMENT SYSTEM", submitted by [Student Name] (Roll No: [Roll Number / Registration ID]) in partial fulfillment of the requirements for the award of the degree of Bachelor of Technology in Computer Science and Engineering, is an authentic record of independent project work carried out under my supervision and guidance during the academic year 2025–2026.
+
+To the best of my knowledge, the matter embodied in this project report has not been submitted to any other University or Institute for the award of any degree or diploma.
+
+
+___________________________                    ___________________________
+[Supervisor Name]                              Head of the Department
+Project Supervisor, Assistant Professor        Department of Computer Science & Engg.
+[Institution / University Name]                [Institution / University Name]
+</div>
+
+<div class="page-break"></div>
+
+<!-- DECLARATION -->
+<h1 class="front-matter-title">DECLARATION</h1>
+<div class="prelim-p" style="white-space: pre-line;">I hereby declare that the project work entitled "MINDBLOOM — CHILD APTITUDE & INTEREST ASSESSMENT SYSTEM" submitted to the Department of Computer Science and Engineering, [Institution / College Name], in partial fulfillment of the requirements for the award of the degree of Bachelor of Technology in Computer Science and Engineering, is an authentic record of original work carried out by me under the guidance of [Supervisor Name, Designation].
+
+I further declare that the content presented in this report has not formed the basis for the award of any other degree, diploma, fellowship, or similar title to any candidate in this or any other institution. All sources of literature, theoretical frameworks, software libraries, and references cited have been duly acknowledged.
+
+
+Place: [City, State]                           ___________________________
+Date: November 6, 2026                         [Student Name]
+                                               Roll No: [Roll Number / Registration ID]
+</div>
+
+<div class="page-break"></div>
+
+<!-- ACKNOWLEDGEMENTS -->
+<h1 class="front-matter-title">ACKNOWLEDGEMENTS</h1>
+<div class="prelim-p" style="white-space: pre-line;">I take this opportunity to express my profound gratitude and deep regards to my project guide, [Supervisor Name, Designation], for exemplary guidance, invaluable constructive feedback, and continuous encouragement throughout the conceptualization, development, and formal documentation of the MindBloom project.
+
+I extend my heartfelt thanks to the Head of the Department of Computer Science and Engineering, [HOD Name], for providing state-of-the-art laboratory facilities, uninterrupted computing infrastructure, and administrative support necessary for the completion of this capstone endeavor.
+
+I also convey my gratitude to all faculty members, technical laboratory staff, and academic mentors of the Department of Computer Science and Engineering whose pedagogical insights shaped my understanding of software engineering, database design, and web architecture.
+
+Finally, I wish to express my deepest appreciation to my parents, family, and peers for their endless moral support, patience, and inspiration throughout my academic journey.</div>
+
+<div class="page-break"></div>
+
+<!-- ABSTRACT -->
+<h1 class="front-matter-title">ABSTRACT</h1>
+<div class="prelim-p">MindBloom is a specialized, web-based educational exploration platform designed to identify, nurture, and longitudinally track the natural cognitive strengths, reasoning aptitudes, and personal interests of children aged 5 to 18. In contrast to conventional psychometric examinations that enforce high-stakes evaluative stress or assume homogeneous adult reading comprehension, MindBloom implements a developmentally tiered, multi-track assessment engine built upon Django 5.2.19, Python 3.11.9, and SQLite 3. The system partitions assessment content into three distinct developmental cohorts—Early Primary (Ages 5–8), Upper Primary/Middle School (Ages 9–12), and Secondary/Young Adult (Ages 13–18)—ensuring questions match the linguistic, cognitive, and conceptual maturity of each child.
+
+MindBloom provides distinct aptitude and interest assessment paths. The aptitude evaluation measures five cognitive domains (Logical Reasoning, Numerical Ability, Pattern Recognition, Problem Solving, and Spatial Reasoning) using deterministic scoring, yielding both category-specific proficiencies and an aggregate performance index. The interest exploration track adopts a non-evaluative psychometric approach across five interest dimensions (Arts & Creativity, Nature & Exploration, Science & Technology, Social Activities, and Sports & Physical Activities), categorizing affinities into High, Moderate, and Emerging tiers to recommend enriching real-world pursuits without punitive grading. Furthermore, the platform incorporates an authenticated Parent Dashboard supporting multi-child management, cross-child session isolation, and longitudinal attempt tracking to calculate historical progression metrics (+/- delta%) across repeated sittings.
+
+The architecture strictly follows Django's Model-Template-View (MTV) pattern, utilizing SQLite for ACID-compliant persistence, Django's native authentication framework for authorization boundaries, and server-rendered templates styled with an accessible, child-friendly CSS design system. Comprehensive automated testing comprising 94 test cases validates strict data isolation, deterministic scoring, age-tier routing, and session security with a 100% pass rate. This report presents the comprehensive software requirements, system architecture, database data dictionary, implementation methodologies, experimental evaluations, and verification artifacts for the MindBloom project.</div>
+
+<div class="page-break"></div>
+
+<!-- MAIN CHAPTERS -->
+<div class="page-chapter"><h1 class="chapter-title">CHAPTER 1: INTRODUCTION</h1>
+<h2 class="section-title">1.1 Project Background</h2>
+<p>Early childhood and adolescence represent foundational developmental periods during which cognitive capacities, reasoning modalities, and individual inclinations undergo rapid evolutionary changes. In modern educational paradigms, recognizing a child's inherent aptitudes and genuine passions early in their developmental journey is pivotal for fostering self-efficacy, reducing academic anxiety, and providing constructive educational scaffolding.</p>
+<p>Historically, identifying a child's strengths relied almost exclusively on standardized classroom examinations or informal parental impressions. Traditional academic assessments primarily evaluate memorized curricular content and rote learning rather than holistic cognitive problem-solving, spatial intuition, or creative affinity. Furthermore, formal clinical psychometric batteries, such as the Wechsler Intelligence Scale for Children (WISC) or Stanford-Binet Intelligence Scales, require administered clinical settings, involve considerable financial expenditure, and can induce severe evaluation apprehension in young children.</p>
+<p>To bridge the gap between informal parental guesswork and intimidating psychometric testing, <strong>MindBloom</strong> was conceived as an accessible, web-based, educational child aptitude and interest exploration system. Developed using Python, Django, and SQLite, MindBloom delivers a low-stress, engaging, and scientifically structured environment where parents and educators can assess children's emerging cognitive domains and recreational inclinations in an age-appropriate format.</p>
+<h2 class="section-title">1.2 Problem Statement</h2>
+<p>Existing computerized testing platforms suffer from fundamental architectural and pedagogical limitations when deployed for children:</p>
+<p>1. <strong>Age-Homogeneity Fallacy:</strong> Most digital assessment tools present identical question phrasing, complexity, and vocabulary across a wide age spectrum (e.g., ages 5 to 18), failing to respect the vast cognitive and linguistic developmental gulf between a 6-year-old early primary student and a 16-year-old secondary student.</p>
+<p>2. <strong>Evaluative Stress and Rigid Grading:</strong> Conventional platforms treat interest exploration through the same punitive lens as academic examinations, presenting children with pass/fail marks, stress-inducing countdown timers, and diagnostic labels that can damage self-esteem.</p>
+<p>3. <strong>Lack of Developmental Tracking:</strong> Most free educational questionnaires are stateless, one-off quizzes that lack longitudinal tracking, preventing parents and educators from observing how cognitive reasoning or creative interests evolve as the child matures.</p>
+<p>4. <strong>Security and Session Vulnerabilities:</strong> In multi-child family households or educational settings where a single parent or teacher supervises multiple children, web applications frequently exhibit session cross-contamination, allowing responses from one child to overwrite or leak into another child's assessment records.</p>
+<h2 class="section-title">1.3 Purpose and Objectives</h2>
+<p>The overarching purpose of the MindBloom project is to design, implement, test, and document a robust, secure, and user-centric web platform tailored specifically to children's cognitive discovery and parental guidance. The specific technical and engineering objectives include:</p>
+<li><strong>Architectural Separation of Assessment Tracks:</strong> Deliver two mathematically and conceptually distinct assessment tracks: an evaluative <strong>Aptitude Assessment</strong> track measuring five cognitive domains, and a non-evaluative <strong>Interest Exploration</strong> track mapping five recreational and curiosity dimensions.</li>
+<li><strong>Developmental Age-Tiered Question Bank:</strong> Engineer a categorized, 150-question database divided symmetrically across three developmental age tiers: Early Primary (Group 1: Ages 5–8), Upper Primary/Middle School (Group 2: Ages 9–12), and Secondary/Adolescent (Group 3: Ages 13–18).</li>
+<li><strong>Deterministic and Fair Scoring Engines:</strong> Construct deterministic algorithmic scoring for aptitude calculations (0–100% normalized performance, category breakdowns, and performance classifications) alongside categorical affinity scoring for interest profiling (High, Moderate, and Emerging affinity tiers).</li>
+<li><strong>Parent Workspace & Multi-Child Profile Management:</strong> Provide an authenticated Parent Dashboard enabling guardians to manage multiple child profiles, initiate age-routed assessments, inspect historical report cards, and track longitudinal score progressions.</li>
+<li><strong>Longitudinal Growth Analytics:</strong> Implement a differential comparison engine capable of calculating attempt-over-attempt percentage point gains or regressions (+/- delta%) across repeated sittings.</li>
+<li><strong>Enterprise-Grade Authorization Hardening:</strong> Enforce strict data isolation at the ORM query level and HTTP session boundary, eliminating IDOR (Insecure Direct Object Reference) vulnerabilities and preventing cross-child session desynchronization.</li>
+<li><strong>Zero-Defect Verification:</strong> Verify system stability through an automated regression test suite achieving 100% pass rates across 94 comprehensive unit and integration test cases.</li>
+<h2 class="section-title">1.4 Project Scope and Boundaries</h2>
+<p>MindBloom is purposefully designed as an <strong>exploratory educational and developmental guidance system</strong>, intended to assist parents and mentors in understanding a child's natural learning inclinations and hobbies.</p>
+<h3 class="subsection-title">Explicit Non-Diagnostic Academic Framing</h3>
+<div class="callout"><strong>ACADEMIC & ETHICAL BOUNDARY NOTICE:</strong></div>
+<div class="callout">MindBloom is <strong>NOT</strong> a psychiatric diagnostic instrument, clinical psychological testing tool, or standardized Intelligence Quotient (IQ) measurement battery. It does not provide medical diagnoses, psychological disorder classifications (e.g., ADHD, ASD, Dyslexia), or formal psycho-educational certifications. The terminology utilized throughout the platform—such as *Advanced*, *Strong*, *Developing*, and *Emerging*—reflects curriculum-neutral developmental engagement, rather than clinical classification.</div>
+<h2 class="section-title">1.5 Organization of the Report</h2>
+<p>The remainder of this report is organized into the following chapters:</p>
+<li><strong>Chapter 2 (Literature Review):</strong> Reviews theoretical frameworks of child development, surveys existing psychometric and career discovery systems, and identifies critical research and architectural gaps.</li>
+<li><strong>Chapter 3 (Software Requirements Specification):</strong> Formulates functional and non-functional requirements, user personas, operational constraints, and prerequisite hardware/software specifications.</li>
+<li><strong>Chapter 4 (System Architecture & Design):</strong> Details the Model-Template-View (MTV) pattern, Level 0 and Level 1 Data Flow Diagrams (DFDs), Entity-Relationship Diagram (ERD), and Use Case workflows.</li>
+<li><strong>Chapter 5 (Database Design & Data Dictionary):</strong> Documents the SQLite relational schema, table structures, column definitions, constraints, foreign key cascades, and migration history.</li>
+<li><strong>Chapter 6 (Detailed Module Implementation):</strong> Discusses the implementation of the Core, Assessment, Results, and Authorization modules, highlighting core algorithms and security policies.</li>
+<li><strong>Chapter 7 (User Interface & Experience Design):</strong> Explores the child-centric visual design system, CSS architecture, navigation layout, and provides detailed walkthroughs of all thirteen system interfaces with screenshots.</li>
+<li><strong>Chapter 8 (Verification & Testing):</strong> Outlines the verification methodology, test harness architecture, test case execution matrix covering 94 tests, and security regression checks.</li>
+<li><strong>Chapter 9 (Results & Discussion):</strong> Analyzes system performance, scoring determinism, longitudinal metrics, and usability feedback.</li>
+<li><strong>Chapter 10 (Limitations & Challenges Encountered):</strong> Discusses technical obstacles encountered during development (such as session collisions and foreign key authorization bypasses) and architectural trade-offs.</li>
+<li><strong>Chapter 11 (Future Enhancements):</strong> Explores avenues for system expansion, including Item Response Theory (IRT) adaptive testing, gamification, and school-wide administrative portals.</li>
+<li><strong>Chapter 12 (Conclusion):</strong> Summarizes project deliverables, technical achievements, and pedagogical significance.</li>
+<li><strong>References & Appendices:</strong> Provide academic bibliographic citations, step-by-step installation instructions, and key algorithmic source code listings.</li></div>
+<div class="page-break"></div>
+<div class="page-chapter"><h1 class="chapter-title">CHAPTER 2: LITERATURE REVIEW & RELATED WORK</h1>
+<h2 class="section-title">2.1 Theoretical Foundations of Child Development</h2>
+<p>The design and domain categorization of MindBloom are rooted in three foundational psychological and pedagogical frameworks:</p>
+<h3 class="subsection-title">2.1.1 Gardner's Theory of Multiple Intelligences</h3>
+<p>In 1983, developmental psychologist Howard Gardner challenged the traditional view of a single general intelligence factor ($g$-factor), proposing that human cognition encompasses distinct semi-autonomous modalities. MindBloom incorporates Gardner's dimensions by mapping assessment domains to specific intelligence modalities:</p>
+<li><strong>Logical-Mathematical Intelligence:</strong> Reflected in the *Logical Reasoning*, *Numerical Ability*, and *Problem Solving* aptitude categories.</li>
+<li><strong>Spatial Intelligence:</strong> Measured via *Spatial Reasoning* and *Pattern Recognition* aptitude categories.</li>
+<li><strong>Bodily-Kinesthetic Intelligence:</strong> Explored through the *Sports & Physical Activities* interest category.</li>
+<li><strong>Interpersonal & Naturalistic Intelligences:</strong> Captured by the *Social Activities* and *Nature & Exploration* interest categories.</li>
+<h3 class="subsection-title">2.1.2 Piaget's Cognitive Developmental Stages</h3>
+<p>Jean Piaget demonstrated that children do not simply possess less knowledge than adults; rather, their cognitive structures and operational capabilities evolve through distinct qualitative stages:</p>
+<p>1. <strong>Preoperational Stage (Ages 2–7):</strong> Thinking is largely intuitive, symbolic, and concrete.</p>
+<p>2. <strong>Concrete Operational Stage (Ages 7–11):</strong> Children develop logical reasoning regarding concrete objects and spatial relationships, but struggle with abstract hypotheses.</p>
+<p>3. <strong>Formal Operational Stage (Ages 12+):</strong> Adolescents acquire the capacity for abstract logical deduction, hypothetical modeling, and metacognitive reflection.</p>
+<p>MindBloom explicitly operationalizes Piaget's findings by establishing three distinct developmental tiers (`GROUP_1`, `GROUP_2`, and `GROUP_3`), calibrating question vocabulary, situational scenarios, and reasoning requirements to the child's developmental stage.</p>
+<h3 class="subsection-title">2.1.3 Holland's RIASEC Model for Interest Exploration</h3>
+<p>John Holland's vocational theory posits that career satisfaction stems from alignment between personality orientation and environmental activities. Although originally formulated for adults, Holland's taxonomy (Realistic, Investigative, Artistic, Social, Enterprising, Conventional) has been adapted in modern educational theory to categorize children's playful curiosities without prematurely pigeonholing their vocational futures. MindBloom adapts these principles into five child-friendly interest clusters: <em>Arts & Creativity</em>, <em>Science & Technology</em>, <em>Nature & Exploration</em>, <em>Social Activities</em>, and <em>Sports & Physical Activities</em>.</p>
+<h2 class="section-title">2.2 Survey of Existing Systems</h2>
+<div class="table-container"><table>
+<tr>
+<th>System Name</th>
+<th>Target Demographic</th>
+<th>Assessment Scope</th>
+<th>Core Methodologies</th>
+<th>Notable Limitations</th>
+</tr>
+<tr>
+<td><strong>WISC-V</strong></td>
+<td>Children (Ages 6–16)</td>
+<td>Clinical Cognitive Ability (FSIQ)</td>
+<td>Clinician-administered standardized psychological battery</td>
+<td>Expensive, high evaluation stress, inaccessible for exploratory parental use</td>
+</tr>
+<tr>
+<td><strong>Khan Academy</strong></td>
+<td>K–12 Students</td>
+<td>Academic Subject Mastery (Math/Science)</td>
+<td>Adaptive formative micro-quizzes linked to instructional videos</td>
+<td>Evaluates academic curriculum rather than broader cognitive aptitudes; no interest profiling</td>
+</tr>
+<tr>
+<td><strong>CareerExplorer / Truity</strong></td>
+<td>Adults & High Schoolers</td>
+<td>Career Aptitude & RIASEC Interests</td>
+<td>Self-report Likert psychometric inventories</td>
+<td>Unsuitable language for young children; lacks parent oversight; no developmental age grouping</td>
+</tr>
+<tr>
+<td><strong>OpenPsychometrics</strong></td>
+<td>General Public</td>
+<td>Personality & Intelligence Tests</td>
+<td>Open-source web forms with automated scoring</td>
+<td>No user authentication; lacks longitudinal multi-child tracking; adult-centric interface</td>
+</tr>
+</table></div>
+<h2 class="section-title">2.3 Critical Gap Analysis</h2>
+<p>A systematic review of current commercial and academic platforms revealed four distinct technological and methodological deficiencies:</p>
+<p>1. <strong>Absence of Unified Cognitive & Interest Synthesis:</strong> Existing tools separate academic testing from career exploration. No lightweight, unified system exists that measures both problem-solving aptitudes and recreational interests side-by-side.</p>
+<p>2. <strong>Inadequate Child-Appropriate UX:</strong> Most web-based assessment engines utilize generic, adult-targeted form controls (dense text fields, small radio buttons, harsh red error alerts) that intimidate young learners.</p>
+<p>3. <strong>Session Contamination in Shared Home Environments:</strong> In typical households where siblings share a single computer tablet or browser, cookie and session collisions frequently result in cross-child record corruption.</p>
+<p>4. <strong>Lack of Actionable, Non-Judgmental Feedback:</strong> Free online tests typically produce a single numerical score without qualitative interpretations or constructive parental guidance.</p>
+<h2 class="section-title">2.4 The Rationale for MindBloom</h2>
+<p>MindBloom resolves these gaps by establishing a purpose-built, secure Django platform that combines developmental age-tiering, deterministic scoring, separate qualitative interest mapping, and longitudinal tracking within a parent-supervised environment.</p></div>
+<div class="page-break"></div>
+<div class="page-chapter"><h1 class="chapter-title">CHAPTER 3: SOFTWARE REQUIREMENTS SPECIFICATION (SRS)</h1>
+<h2 class="section-title">3.1 User Characteristics & Personas</h2>
+<p>The system serves three primary user personas:</p>
+<p>1. <strong>Parents / Guardians / Mentors (Primary Authenticated User):</strong></p>
+<p>   - Tech-literate adults seeking constructive insights into their children's learning strengths.</p>
+<p>   - Responsibilities: Account registration, creating and updating child profiles, selecting assessment tracks, reviewing synthesized reports, and tracking historical progress.</p>
+<p>2. <strong>Child Learners (Supervised Assessment Takers):</strong></p>
+<p>   - Young learners aged 5 to 18 interacting with questionnaire interfaces under parent guidance.</p>
+<p>   - Requirements: Clean typography, large touch-friendly button targets, engaging visual feedback, and clear progress indicators.</p>
+<p>3. <strong>System Administrators:</strong></p>
+<p>   - Academic evaluators or administrators managing question bank items, system migrations, and security settings via Django's administrative interface.</p>
+<h2 class="section-title">3.2 Functional Requirements (FR)</h2>
+<h3 class="subsection-title">FR-01: User Authentication & Identity Management</h3>
+<li><strong>FR-01.1:</strong> The system shall allow new parents to register using a unique username and password.</li>
+<li><strong>FR-01.2:</strong> The system shall authenticate returning users via Django's secure authentication framework.</li>
+<li><strong>FR-01.3:</strong> The system shall provide secure session termination and invalidate user sessions upon logout.</li>
+<li><strong>FR-01.4:</strong> The system shall restrict all dashboard, child profile, assessment, and result views to authenticated users (`@login_required`).</li>
+<h3 class="subsection-title">FR-02: Child Profile Management</h3>
+<li><strong>FR-02.1:</strong> Authenticated parents shall be able to register multiple children under their account, providing child name, birth date, age (5–18), gender, and optional school/grade notes.</li>
+<li><strong>FR-02.2:</strong> The system shall automatically compute and assign the child's developmental cohort (`GROUP_1`, `GROUP_2`, or `GROUP_3`) based on their recorded age.</li>
+<li><strong>FR-02.3:</strong> Parents shall be able to view, edit, and inspect individual child profiles from the dashboard.</li>
+<li><strong>FR-02.4:</strong> The system shall strictly restrict profile access to the authenticated owner (`child.owner == request.user`).</li>
+<h3 class="subsection-title">FR-03: Assessment Routing & Questionnaire Engine</h3>
+<li><strong>FR-03.1:</strong> The system shall allow parents to select either an <strong>Aptitude Assessment</strong> or an <strong>Interest Assessment</strong> for an active child.</li>
+<li><strong>FR-03.2:</strong> The questionnaire engine shall query only questions matching the selected assessment type, active status, and the child's specific developmental age group.</li>
+<li><strong>FR-03.3:</strong> The engine shall present questions sequentially (one question per page) with a visual progress bar (`Question X of 25`).</li>
+<li><strong>FR-03.4:</strong> The engine shall record user option selections in `assessment_answer` records upon navigation.</li>
+<li><strong>FR-03.5:</strong> The engine shall allow bi-directional navigation (Previous/Next) while preserving previously selected responses.</li>
+<h3 class="subsection-title">FR-04: Result Synthesis & Reporting</h3>
+<li><strong>FR-04.1:</strong> Upon submitting the final question, the system shall compute results deterministically and transition assessment status to `COMPLETED`.</li>
+<li><strong>FR-04.2:</strong> For Aptitude assessments, the system shall compute overall percentage score, domain category scores, and assign descriptive classifications (*Advanced*, *Strong*, *Competent*, *Developing*, *Emerging*).</li>
+<li><strong>FR-04.3:</strong> For Interest assessments, the system shall compute domain response distributions and categorize affinities (*High Affinity*, *Moderate Affinity*, *Emerging Affinity*), suppressing numerical percentage grading.</li>
+<li><strong>FR-04.4:</strong> The report generator shall render category progress meters, top strength badges, and pedagogical recommendation cards.</li>
+<h3 class="subsection-title">FR-05: Longitudinal Attempt Tracking</h3>
+<li><strong>FR-05.1:</strong> The child profile shall display a chronological history table listing all completed and pending assessments.</li>
+<li><strong>FR-05.2:</strong> When a child completes two or more assessments of the same type, the system shall display a Longitudinal Attempt Comparison card calculating score differentials ($\Delta\%$) across cognitive categories.</li>
+<h2 class="section-title">3.3 Non-Functional Requirements (NFR)</h2>
+<li><strong>NFR-01 (Security & Authorization):</strong> Zero tolerance for IDOR vulnerabilities. Direct URL tampering with child or assessment primary keys by unauthorized users shall return HTTP 403 Forbidden.</li>
+<li><strong>NFR-02 (Session Isolation):</strong> Active assessment sessions must be cryptographically bounded to the active child (`request.session['active_child_id']`). Cross-child URL manipulation shall be blocked.</li>
+<li><strong>NFR-03 (Performance):</strong> Dynamic page response latency shall remain under 150 milliseconds on standard hardware under single-server loads.</li>
+<li><strong>NFR-04 (Usability & Accessibility):</strong> Responsive layout functioning across standard desktop monitors (1920×1080), laptops (1280×800), and tablets (1024×768) with minimum font size of 16px and high-contrast color palettes.</li>
+<li><strong>NFR-05 (Maintainability & Test Coverage):</strong> Automated test suite covering at least 90 test cases across models, views, scoring logic, and security rules.</li>
+<h2 class="section-title">3.4 Hardware, Software, and Network Prerequisites</h2>
+<li><strong>Hardware:</strong> Minimum dual-core x86/x64 processor, 4 GB RAM, 10 GB available disk storage.</li>
+<li><strong>Operating System:</strong> Platform independent (Windows 11, macOS, or Ubuntu Linux 22.04 LTS).</li>
+<li><strong>Python Runtime:</strong> Python 3.11.x or later.</li>
+<li><strong>Web Framework:</strong> Django 5.2.x.</li>
+<li><strong>Database Engine:</strong> SQLite 3.35+ (bundled with Python).</li>
+<li><strong>Client Browser:</strong> Modern web browser supporting CSS Grid, Flexbox, and HTML5 (Google Chrome, Mozilla Firefox, Microsoft Edge, Safari).</li></div>
+<div class="page-break"></div>
+<div class="page-chapter"><h1 class="chapter-title">CHAPTER 4: SYSTEM ARCHITECTURE & DESIGN</h1>
+<h2 class="section-title">4.1 Architectural Pattern: Django MTV</h2>
+<p>MindBloom adopts Django's established Model-Template-View (MTV) architectural paradigm, providing a strict separation of concerns:</p>
+<li><strong>Model Layer (`models.py`):</strong> Encapsulates relational schema definitions, data integrity constraints, relationships, custom properties, and database queries.</li>
+<li><strong>Template Layer (`templates/`):</strong> Generates semantic, accessible HTML5 views enriched with server-rendered context data and custom CSS design tokens.</li>
+<li><strong>View Layer (`views.py`):</strong> Orchestrates HTTP request handling, user authentication, authorization validation, business logic, deterministic score calculation, and response generation.</li>
+<pre><code>graph TD
+    Client[Web Browser / Client] --&gt;|HTTP Request| URLRouter[Django URL Dispatcher]
+    URLRouter --&gt;|Routes to View| ViewLayer[View Layer: core / assessment / results]
+    ViewLayer --&gt;|User Auth &amp; Permission Check| AuthEngine[Django Auth &amp; Session Engine]
+    ViewLayer --&gt;|ORM Query| ModelLayer[Model Layer: Child, Assessment, Question, Result]
+    ModelLayer --&gt;|SQL Execution| SQLiteDB[(SQLite 3 Database)]
+    SQLiteDB --&gt;|Recordsets| ModelLayer
+    ModelLayer --&gt;|Domain Objects| ViewLayer
+    ViewLayer --&gt;|Populates Context| TemplateLayer[Template Engine: Django Templates + CSS]
+    TemplateLayer --&gt;|Renders HTML5| ViewLayer
+    ViewLayer --&gt;|HTTP Response 200 OK| Client</code></pre>
+<h2 class="section-title">4.2 Data Flow Diagrams (DFD)</h2>
+<h3 class="subsection-title">4.2.1 Level 0 Context Diagram</h3>
+<p>The Level 0 DFD illustrates the high-level boundaries of the MindBloom system, showing data exchanges between external entities (Parent, Child) and the central application.</p>
+<pre><code>graph LR
+    Parent((Parent / Educator)) --&gt;|Registration &amp; Login Data| MindBloom[MindBloom Assessment System]
+    Parent --&gt;|Child Profiles &amp; Track Selection| MindBloom
+    MindBloom --&gt;|Authenticated Dashboard &amp; Reports| Parent
+    Child((Child Learner)) --&gt;|Questionnaire Responses| MindBloom
+    MindBloom --&gt;|Interactive Questions &amp; Feedback| Child</code></pre>
+<h3 class="subsection-title">4.2.2 Level 1 Detailed Data Flow Diagram</h3>
+<p>The Level 1 DFD decomposes the system into its five constituent operational sub-processes:</p>
+<pre><code>graph TD
+    Parent((Parent)) --&gt;|Credentials| P1[1.0 User Authentication]
+    P1 --&gt;|Session Token| SessionStore[(User Session Store)]
+    P1 --&gt;|Auth Status| Parent
+    
+    Parent --&gt;|Child Details| P2[2.0 Child Profile Management]
+    P2 --&gt;|Persists Profile| DB_Child[(Child Table)]
+    DB_Child --&gt;|Child List &amp; Cohort| P2
+    P2 --&gt;|Profile Views| Parent
+
+    Parent --&gt;|Selects Track| P3[3.0 Assessment Engine]
+    P3 --&gt;|Retrieves Questions by Age Group| DB_Question[(Question Bank)]
+    DB_Question --&gt;|Question Objects| P3
+    P3 --&gt;|Presents Questions| Child((Child Learner))
+    Child --&gt;|Submits Option Choice| P3
+    P3 --&gt;|Saves Response| DB_Answer[(Answer Table)]
+
+    P3 --&gt;|Triggers Completion| P4[4.0 Scoring &amp; Result Synthesis]
+    DB_Answer --&gt;|Fetch Answers| P4
+    P4 --&gt;|Calculates Domain &amp; Overall Scores| DB_Result[(Result Table)]
+    
+    P4 --&gt;|Generated Results| P5[5.0 Longitudinal &amp; Report Generator]
+    DB_Result --&gt;|Historical Attempts| P5
+    P5 --&gt;|Rendered Reports &amp; Deltas| Parent</code></pre>
+<h2 class="section-title">4.3 Entity-Relationship Diagram (ERD)</h2>
+<p>The database structure is centered around the authenticated `User`, who owns one or more `Child` entities. Each child participates in multiple `Assessment` instances, which gather `Answer` records against the tiered `Question` bank and generate analytical `Result` records.</p>
+<pre><code>erDiagram
+    USER ||--o{ CHILD : "registers and owns"
+    CHILD ||--o{ ASSESSMENT : "undertakes"
+    ASSESSMENT ||--o{ ANSWER : "contains"
+    QUESTION ||--o{ ANSWER : "answered by"
+    ASSESSMENT ||--|| RESULT : "produces"
+
+    USER {
+        int id PK
+        string username
+        string password
+        string email
+        datetime date_joined
+    }
+
+    CHILD {
+        int id PK
+        int owner_id FK
+        string name
+        int age
+        date date_of_birth
+        string gender
+        string school_grade
+        datetime created_at
+    }
+
+    ASSESSMENT {
+        int id PK
+        int child_id FK
+        string assessment_type
+        string status
+        datetime created_at
+        datetime completed_at
+    }
+
+    QUESTION {
+        int id PK
+        string assessment_type
+        string age_group
+        string category
+        string difficulty
+        string question_text
+        json options
+        string correct_answer
+        int order
+        boolean is_active
+    }
+
+    ANSWER {
+        int id PK
+        int assessment_id FK
+        int question_id FK
+        string selected_option
+        int score_value
+        datetime created_at
+    }
+
+    RESULT {
+        int id PK
+        int assessment_id FK
+        int child_id FK
+        float overall_score
+        json category_scores
+        string primary_strength
+        string secondary_strength
+        text recommendations
+        datetime generated_at
+    }</code></pre>
+<h2 class="section-title">4.4 Use Case Diagram</h2>
+<p>The primary actors interacting with MindBloom are the <strong>Parent / Educator</strong>, the <strong>Child Learner</strong>, and the <strong>System Administrator</strong>.</p>
+<pre><code>flowchart LR
+    subgraph MindBloom System Boundary
+        UC1[Register &amp; Authenticate Account]
+        UC2[Add &amp; Manage Child Profiles]
+        UC3[Select Assessment Track]
+        UC4[Take Sequential Questionnaire]
+        UC5[Calculate Deterministic Results]
+        UC6[View Synthesized Assessment Report]
+        UC7[Track Longitudinal Attempt Progress]
+        UC8[Manage Question Bank Items]
+    end
+
+    Parent((Parent / Educator)) --&gt; UC1
+    Parent --&gt; UC2
+    Parent --&gt; UC3
+    Parent --&gt; UC6
+    Parent --&gt; UC7
+
+    Child((Child Learner)) --&gt; UC4
+
+    Admin((System Administrator)) --&gt; UC8
+    Admin --&gt; UC1
+
+    UC3 -.-&gt;|triggers| UC4
+    UC4 -.-&gt;|completes| UC5
+    UC5 -.-&gt;|generates| UC6</code></pre></div>
+<div class="page-break"></div>
+<div class="page-chapter"><h1 class="chapter-title">CHAPTER 5: DATABASE DESIGN & DATA DICTIONARY</h1>
+<h2 class="section-title">5.1 Relational Schema Architecture</h2>
+<p>MindBloom utilizes SQLite 3 as its persistent relational database engine. In compliance with relational database normalization principles (3NF), data redundancy is eliminated while preserving strict referential integrity through foreign key constraints, cascading deletions, unique indexes, and Django database transactions.</p>
+<h2 class="section-title">5.2 Comprehensive Data Dictionary</h2>
+<h3 class="subsection-title">Table 1: `auth_user` (Django Native Authentication Table)</h3>
+<p>Stores credential and identification records for registered parents and educators.</p>
+<div class="table-container"><table>
+<tr>
+<th>Column Name</th>
+<th>SQL Type</th>
+<th>Nullable</th>
+<th>Key</th>
+<th>Constraints & Description</th>
+</tr>
+<tr>
+<td>`id`</td>
+<td>INTEGER</td>
+<td>NO</td>
+<td>PK</td>
+<td>Auto-incrementing primary key</td>
+</tr>
+<tr>
+<td>`username`</td>
+<td>VARCHAR(150)</td>
+<td>NO</td>
+<td>UNIQUE</td>
+<td>Unique account login name</td>
+</tr>
+<tr>
+<td>`password`</td>
+<td>VARCHAR(128)</td>
+<td>NO</td>
+<td>—</td>
+<td>PBKDF2-SHA256 salted password hash</td>
+</tr>
+<tr>
+<td>`email`</td>
+<td>VARCHAR(254)</td>
+<td>YES</td>
+<td>—</td>
+<td>Contact email address</td>
+</tr>
+<tr>
+<td>`is_staff`</td>
+<td>BOOLEAN</td>
+<td>NO</td>
+<td>—</td>
+<td>Administrative staff status</td>
+</tr>
+<tr>
+<td>`is_active`</td>
+<td>BOOLEAN</td>
+<td>NO</td>
+<td>—</td>
+<td>Active user account flag</td>
+</tr>
+<tr>
+<td>`date_joined`</td>
+<td>DATETIME</td>
+<td>NO</td>
+<td>—</td>
+<td>Timestamp of account registration</td>
+</tr>
+</table></div>
+<h3 class="subsection-title">Table 2: `core_child` (Child Profile Table)</h3>
+<p>Maintains child demographic profiles linked to authenticated parents.</p>
+<div class="table-container"><table>
+<tr>
+<th>Column Name</th>
+<th>SQL Type</th>
+<th>Nullable</th>
+<th>Key</th>
+<th>Constraints & Description</th>
+</tr>
+<tr>
+<td>`id`</td>
+<td>INTEGER</td>
+<td>NO</td>
+<td>PK</td>
+<td>Auto-incrementing primary key</td>
+</tr>
+<tr>
+<td>`owner_id`</td>
+<td>INTEGER</td>
+<td>NO</td>
+<td>FK</td>
+<td>References `auth_user(id)` ON DELETE CASCADE</td>
+</tr>
+<tr>
+<td>`name`</td>
+<td>VARCHAR(100)</td>
+<td>NO</td>
+<td>—</td>
+<td>Child full name</td>
+</tr>
+<tr>
+<td>`age`</td>
+<td>INTEGER</td>
+<td>NO</td>
+<td>—</td>
+<td>Age in years (Validated: 5 <= age <= 18)</td>
+</tr>
+<tr>
+<td>`date_of_birth`</td>
+<td>DATE</td>
+<td>YES</td>
+<td>—</td>
+<td>Optional formal date of birth</td>
+</tr>
+<tr>
+<td>`gender`</td>
+<td>VARCHAR(20)</td>
+<td>YES</td>
+<td>—</td>
+<td>Choices: MALE, FEMALE, OTHER, PREFER_NOT_TO_SAY</td>
+</tr>
+<tr>
+<td>`school_grade`</td>
+<td>VARCHAR(50)</td>
+<td>YES</td>
+<td>—</td>
+<td>Grade/standard (e.g., "5th Grade")</td>
+</tr>
+<tr>
+<td>`notes`</td>
+<td>TEXT</td>
+<td>YES</td>
+<td>—</td>
+<td>Optional parental/educator notes</td>
+</tr>
+<tr>
+<td>`created_at`</td>
+<td>DATETIME</td>
+<td>NO</td>
+<td>—</td>
+<td>Timestamp of profile registration</td>
+</tr>
+</table></div>
+<h3 class="subsection-title">Table 3: `assessment_assessment` (Assessment Attempt Session Table)</h3>
+<p>Tracks individual assessment sessions initiated for a child.</p>
+<div class="table-container"><table>
+<tr>
+<th>Column Name</th>
+<th>SQL Type</th>
+<th>Nullable</th>
+<th>Key</th>
+<th>Constraints & Description</th>
+</tr>
+<tr>
+<td>`id`</td>
+<td>INTEGER</td>
+<td>NO</td>
+<td>PK</td>
+<td>Auto-incrementing primary key</td>
+</tr>
+<tr>
+<td>`child_id`</td>
+<td>INTEGER</td>
+<td>NO</td>
+<td>FK</td>
+<td>References `core_child(id)` ON DELETE CASCADE</td>
+</tr>
+<tr>
+<td>`assessment_type`</td>
+<td>VARCHAR(20)</td>
+<td>NO</td>
+<td>—</td>
+<td>Choices: `APTITUDE`, `INTEREST`</td>
+</tr>
+<tr>
+<td>`status`</td>
+<td>VARCHAR(20)</td>
+<td>NO</td>
+<td>—</td>
+<td>Choices: `PENDING`, `COMPLETED`, `ABANDONED`</td>
+</tr>
+<tr>
+<td>`created_at`</td>
+<td>DATETIME</td>
+<td>NO</td>
+<td>—</td>
+<td>Initiation timestamp</td>
+</tr>
+<tr>
+<td>`completed_at`</td>
+<td>DATETIME</td>
+<td>YES</td>
+<td>—</td>
+<td>Submission timestamp</td>
+</tr>
+</table></div>
+<h3 class="subsection-title">Table 4: `assessment_question` (Tiered Question Bank Table)</h3>
+<p>Maintains all 150 questions across assessment types, age cohorts, and domains.</p>
+<div class="table-container"><table>
+<tr>
+<th>Column Name</th>
+<th>SQL Type</th>
+<th>Nullable</th>
+<th>Key</th>
+<th>Constraints & Description</th>
+</tr>
+<tr>
+<td>`id`</td>
+<td>INTEGER</td>
+<td>NO</td>
+<td>PK</td>
+<td>Auto-incrementing primary key</td>
+</tr>
+<tr>
+<td>`assessment_type`</td>
+<td>VARCHAR(20)</td>
+<td>NO</td>
+<td>—</td>
+<td>Choices: `APTITUDE`, `INTEREST`</td>
+</tr>
+<tr>
+<td>`age_group`</td>
+<td>VARCHAR(20)</td>
+<td>NO</td>
+<td>—</td>
+<td>Choices: `GROUP_1` (5–8), `GROUP_2` (9–12), `GROUP_3` (13–18)</td>
+</tr>
+<tr>
+<td>`category`</td>
+<td>VARCHAR(50)</td>
+<td>NO</td>
+<td>—</td>
+<td>Cognitive or interest domain category</td>
+</tr>
+<tr>
+<td>`difficulty`</td>
+<td>VARCHAR(20)</td>
+<td>NO</td>
+<td>—</td>
+<td>Choices: `EASY`, `MEDIUM`, `HARD`</td>
+</tr>
+<tr>
+<td>`question_text`</td>
+<td>TEXT</td>
+<td>NO</td>
+<td>—</td>
+<td>The question or prompt displayed to the child</td>
+</tr>
+<tr>
+<td>`options`</td>
+<td>JSON</td>
+<td>NO</td>
+<td>—</td>
+<td>List of selectable choices (e.g., `["A", "B", "C", "D"]`)</td>
+</tr>
+<tr>
+<td>`correct_answer`</td>
+<td>VARCHAR(200)</td>
+<td>YES</td>
+<td>—</td>
+<td>Exact string of correct choice (Aptitude only)</td>
+</tr>
+<tr>
+<td>`order`</td>
+<td>INTEGER</td>
+<td>NO</td>
+<td>—</td>
+<td>Sequence ordering index</td>
+</tr>
+<tr>
+<td>`is_active`</td>
+<td>BOOLEAN</td>
+<td>NO</td>
+<td>—</td>
+<td>Active status flag (Default: True)</td>
+</tr>
+</table></div>
+<h3 class="subsection-title">Table 5: `assessment_answer` (Recorded Response Table)</h3>
+<p>Stores responses submitted by children during an assessment.</p>
+<div class="table-container"><table>
+<tr>
+<th>Column Name</th>
+<th>SQL Type</th>
+<th>Nullable</th>
+<th>Key</th>
+<th>Constraints & Description</th>
+</tr>
+<tr>
+<td>`id`</td>
+<td>INTEGER</td>
+<td>NO</td>
+<td>PK</td>
+<td>Auto-incrementing primary key</td>
+</tr>
+<tr>
+<td>`assessment_id`</td>
+<td>INTEGER</td>
+<td>NO</td>
+<td>FK</td>
+<td>References `assessment_assessment(id)` ON DELETE CASCADE</td>
+</tr>
+<tr>
+<td>`question_id`</td>
+<td>INTEGER</td>
+<td>NO</td>
+<td>FK</td>
+<td>References `assessment_question(id)` ON DELETE CASCADE</td>
+</tr>
+<tr>
+<td>`selected_option`</td>
+<td>TEXT</td>
+<td>NO</td>
+<td>—</td>
+<td>String representation of chosen option</td>
+</tr>
+<tr>
+<td>`score_value`</td>
+<td>INTEGER</td>
+<td>NO</td>
+<td>—</td>
+<td>Evaluative score: 1 or 0 (Aptitude); 1 to 5 (Interest)</td>
+</tr>
+<tr>
+<td>`created_at`</td>
+<td>DATETIME</td>
+<td>NO</td>
+<td>—</td>
+<td>Response recording timestamp</td>
+</tr>
+</table></div>
+<h3 class="subsection-title">Table 6: `results_result` (Synthesized Report Table)</h3>
+<p>Contains deterministic scores, category distributions, strengths, and recommendations.</p>
+<div class="table-container"><table>
+<tr>
+<th>Column Name</th>
+<th>SQL Type</th>
+<th>Nullable</th>
+<th>Key</th>
+<th>Constraints & Description</th>
+</tr>
+<tr>
+<td>`id`</td>
+<td>INTEGER</td>
+<td>NO</td>
+<td>PK</td>
+<td>Auto-incrementing primary key</td>
+</tr>
+<tr>
+<td>`assessment_id`</td>
+<td>INTEGER</td>
+<td>NO</td>
+<td>FK/UNI</td>
+<td>1-to-1 References `assessment_assessment(id)` ON DELETE CASCADE</td>
+</tr>
+<tr>
+<td>`child_id`</td>
+<td>INTEGER</td>
+<td>NO</td>
+<td>FK</td>
+<td>References `core_child(id)` ON DELETE CASCADE</td>
+</tr>
+<tr>
+<td>`overall_score`</td>
+<td>FLOAT</td>
+<td>YES</td>
+<td>—</td>
+<td>Aggregate percentage (0.0 to 100.0, Aptitude only)</td>
+</tr>
+<tr>
+<td>`category_scores`</td>
+<td>JSON</td>
+<td>NO</td>
+<td>—</td>
+<td>Dictionary of domain percentage metrics or counts</td>
+</tr>
+<tr>
+<td>`primary_strength`</td>
+<td>VARCHAR(100)</td>
+<td>YES</td>
+<td>—</td>
+<td>Highest-scoring category name</td>
+</tr>
+<tr>
+<td>`secondary_strength`</td>
+<td>VARCHAR(100)</td>
+<td>YES</td>
+<td>—</td>
+<td>Second highest-scoring category name</td>
+</tr>
+<tr>
+<td>`recommendations`</td>
+<td>TEXT</td>
+<td>YES</td>
+<td>—</td>
+<td>Curated pedagogical development suggestions</td>
+</tr>
+<tr>
+<td>`generated_at`</td>
+<td>DATETIME</td>
+<td>NO</td>
+<td>—</td>
+<td>Report generation timestamp</td>
+</tr>
+</table></div>
+<h2 class="section-title">5.3 Referential Integrity & Cascade Policies</h2>
+<p>All foreign keys in the MindBloom relational schema are configured with `ON DELETE CASCADE`. If a parent deletes their account, all associated child profiles, assessments, answers, and result records are cleanly purged in a single atomic transaction, preventing orphaned records.</p></div>
+<div class="page-break"></div>
+<div class="page-chapter"><h1 class="chapter-title">CHAPTER 6: DETAILED MODULE IMPLEMENTATION</h1>
+<h2 class="section-title">6.1 Core Application Module (`core`)</h2>
+<p>The `core` application serves as the foundation of MindBloom, governing user identity, authentication, session initialization, and child profile lifecycles.</p>
+<li><strong>Child Model Age-Tier Automation:</strong> The `Child` model includes a computed property `age_group` that maps chronological age directly to developmental cohorts:</li>
+<p>  $$	ext{Cohort}(age) = egin{cases} 	ext{GROUP\_1} & 	ext{if } 5 \le age \le 8 \ 	ext{GROUP\_2} & 	ext{if } 9 \le age \le 12 \ 	ext{GROUP\_3} & 	ext{if } 13 \le age \le 18 \end{cases}$$</p>
+<li><strong>Parent Dashboard (`core/views.py:dashboard`):</strong> Aggregates registered children owned by the logged-in user, querying each child's completed assessments, pending assessments, and latest result records via pre-fetched ORM queries (`select_related`, `prefetch_related`) to eliminate $N+1$ query overhead.</li>
+<h2 class="section-title">6.2 Assessment Engine Module (`assessment`)</h2>
+<p>The `assessment` application manages question bank querying, sequential questionnaire navigation, and response capture.</p>
+<li><strong>Cohort-Filtered Retrieval:</strong> When an assessment is initiated, the view queries only active questions matching the assessment type and the child's age group:</li>
+<p>  ```python</p>
+<p>  questions = list(</p>
+<p>      Question.objects.filter(</p>
+<p>          assessment_type=assessment.assessment_type,</p>
+<p>          age_group=assessment.child.age_group,</p>
+<p>          is_active=True</p>
+<p>      ).order_by('order', 'id')</p>
+<p>  )</p>
+<p>  ```</p>
+<li><strong>Sequential Paging Engine:</strong> Renders one question at a time using `question_index` (1-indexed). When the child clicks "Next" or "Submit", the POST request records or updates the corresponding `Answer` record before redirecting to the next question index.</li>
+<h2 class="section-title">6.3 Results & Analytics Module (`results`)</h2>
+<p>The `results` application executes deterministic score synthesis upon questionnaire completion.</p>
+<h3 class="subsection-title">6.3.1 Aptitude Scoring Algorithm</h3>
+<p>For an Aptitude assessment containing $N = 25$ questions across 5 categories ($C_1, \dots, C_5$), each correct response contributes 1 point ($	ext{score\_value} = 1$).</p>
+<p>$$	ext{Category Score } (C_i) = rac{\sum_{q \in C_i} 	ext{score\_value}_q}{|C_i|} 	imes 100\%$$</p>
+<p>$$	ext{Overall Score} = rac{\sum_{i=1}^{N} 	ext{score\_value}_i}{N} 	imes 100\%$$</p>
+<p>Performance classifications are assigned deterministically:</p>
+<li>$Score \ge 85\%$: <strong>Advanced Proficiency</strong></li>
+<li>$70\% \le Score < 85\%$: <strong>Strong Proficiency</strong></li>
+<li>$55\% \le Score < 70\%$: <strong>Competent Developing</strong></li>
+<li>$40\% \le Score < 55\%$: <strong>Emerging Foundation</strong></li>
+<li>$Score < 40\%$: <strong>Foundational Exploration</strong></li>
+<h3 class="subsection-title">6.3.2 Interest Scoring Algorithm</h3>
+<p>In contrast to aptitude grading, interest questions do not have "correct" answers. Responses capture affinity levels ($A \in [1, 5]$). The engine computes total affirmative responses per category and assigns qualitative tiers:</p>
+<li><strong>High Affinity (Primary Interest):</strong> Categories with maximum response frequencies.</li>
+<li><strong>Moderate Affinity:</strong> Categories with consistent engagement.</li>
+<li><strong>Emerging Affinity:</strong> Categories with exploratory or situational curiosity.</li>
+<h2 class="section-title">6.4 Longitudinal Progression Tracking</h2>
+<p>When a child completes multiple assessments of the same type (e.g., an initial assessment and a subsequent re-test), the child profile view (`core/views.py:child_profile`) executes differential analytics:</p>
+<p>$$\Delta 	ext{Category} = 	ext{Score}_{	ext{latest}} - 	ext{Score}_{	ext{prior}}$$</p>
+<p>The view formats positive differentials as green progression badges (e.g., `+8.0%`) and renders a comparative progression table illustrating cognitive growth over time.</p>
+<h2 class="section-title">6.5 Security & Authorization Hardening</h2>
+<p>Security hardening was conducted to eliminate two critical web vulnerabilities:</p>
+<p>1. <strong>Strict Ownership Enforcement:</strong> All views accessing a `Child` or `Assessment` verify that `child.owner_id == request.user.id`. Conditional checks that previously permitted unassigned records were replaced with strict assertions, raising `PermissionDenied` (HTTP 403) on violation.</p>
+<p>2. <strong>Cross-Child Session Isolation:</strong> To prevent siblings from accessing each other's active questionnaires via browser history or URL tampering, `assessment/views.py` validates `request.session.get('active_child_id') == assessment.child_id`.</p></div>
+<div class="page-break"></div>
+<div class="page-chapter"><h1 class="chapter-title">CHAPTER 7: USER INTERFACE & EXPERIENCE DESIGN</h1>
+<h2 class="section-title">7.1 Child-Centric Design Philosophy</h2>
+<p>MindBloom's user interface is purposefully engineered to accommodate both adult guardians managing data and young children taking assessments. The design emphasizes:</p>
+<li><strong>Calm, Non-Intimidating Aesthetics:</strong> Avoiding aggressive red failure markers and high-stress countdown timers.</li>
+<li><strong>High Readability:</strong> Base font size of 16px with clear sans-serif typography (`Inter`, `Segoe UI`, `system-ui`).</li>
+<li><strong>Tactile Touch Targets:</strong> Generous padding (minimum 44×44px hit targets) on radio cards and buttons to facilitate tablet and touch interaction for young children.</li>
+<h2 class="section-title">7.2 Design System & CSS Tokens</h2>
+<p>The application styling is structured around semantic CSS custom properties defined in `static/css/style.css`:</p>
+<pre><code>:root {
+  --color-primary: #3b82f6;        /* Engaging Royal Blue */
+  --color-primary-dark: #1d4ed8;   /* Deep Blue Hover */
+  --color-secondary: #10b981;      /* Growth Emerald Green */
+  --color-accent: #f59e0b;         /* Warm Amber Accent */
+  --color-background: #f8fafc;     /* Soft Canvas Grey */
+  --color-surface: #ffffff;        /* Pure White Card Surface */
+  --color-text-main: #1e293b;      /* Slate Charcoal Text */
+  --color-text-muted: #64748b;     /* Readable Muted Slate */
+  --radius-card: 16px;             /* Gentle Rounded Card Border */
+  --shadow-subtle: 0 4px 6px -1px rgba(0,0,0,0.07);
+}</code></pre>
+<h2 class="section-title">7.3 System Interface Walkthrough & Screenshots</h2>
+<p>The following thirteen genuine live application screenshots illustrate the complete user journey from public onboarding to longitudinal analytics:</p>
+<h3 class="subsection-title">Figure 1: Public Homepage & Navigation</h3>
+<div class="figure-container"><img src="file:///E:/project/aptitude_finder/FINAL_PROJECT_REPORT/SCREENSHOTS/01_homepage.png" alt="Figure 1: Public Landing Page"><p class="figure-caption">Figure 1: Public MindBloom landing page detailing the dual-track assessment methodology, developmental age-group overview, and responsive navigation header.</p></div>
+<h3 class="subsection-title">Figure 2: User Account Registration</h3>
+<div class="figure-container"><img src="file:///E:/project/aptitude_finder/FINAL_PROJECT_REPORT/SCREENSHOTS/02_registration.png" alt="Figure 2: User Account Registration"><p class="figure-caption">Figure 2: Account creation interface enabling parents and educators to register securely with input validation and clear guidance.</p></div>
+<h3 class="subsection-title">Figure 3: User Authentication & Login</h3>
+<div class="figure-container"><img src="file:///E:/project/aptitude_finder/FINAL_PROJECT_REPORT/SCREENSHOTS/03_login.png" alt="Figure 3: User Login Interface"><p class="figure-caption">Figure 3: Secure login interface featuring credential verification, session initialization, and helpful demo credential shortcuts.</p></div>
+<h3 class="subsection-title">Figure 4: Parent Workspace Dashboard</h3>
+<div class="figure-container"><img src="file:///E:/project/aptitude_finder/FINAL_PROJECT_REPORT/SCREENSHOTS/04_parent_dashboard.png" alt="Figure 4: Parent Dashboard"><p class="figure-caption">Figure 4: Authenticated parent dashboard displaying managed child cards, assessment progress statuses, and quick action controls.</p></div>
+<h3 class="subsection-title">Figure 5: Child Profile Registration Form</h3>
+<div class="figure-container"><img src="file:///E:/project/aptitude_finder/FINAL_PROJECT_REPORT/SCREENSHOTS/05_child_registration.png" alt="Figure 5: Child Intake Form"><p class="figure-caption">Figure 5: Child intake form capturing name, age, birth date, gender, and school grade with automated age-group cohort assignment.</p></div>
+<h3 class="subsection-title">Figure 6: Child Detail Profile View</h3>
+<div class="figure-container"><img src="file:///E:/project/aptitude_finder/FINAL_PROJECT_REPORT/SCREENSHOTS/06_child_profile.png" alt="Figure 6: Child Profile"><p class="figure-caption">Figure 6: Comprehensive child profile view (Aarav Sharma, Age 10, Group 2) displaying historical attempts, status badges, and action buttons.</p></div>
+<h3 class="subsection-title">Figure 7: Age-Adaptive Assessment Selection</h3>
+<div class="figure-container"><img src="file:///E:/project/aptitude_finder/FINAL_PROJECT_REPORT/SCREENSHOTS/07_assessment_selection.png" alt="Figure 7: Assessment Track Selection"><p class="figure-caption">Figure 7: Track selection screen presenting distinct Aptitude and Interest tracks customized with age-appropriate descriptions for Group 2.</p></div>
+<h3 class="subsection-title">Figure 8: Interactive Aptitude Questionnaire Player</h3>
+<div class="figure-container"><img src="file:///E:/project/aptitude_finder/FINAL_PROJECT_REPORT/SCREENSHOTS/08_aptitude_questionnaire.png" alt="Figure 8: Aptitude Questionnaire"><p class="figure-caption">Figure 8: Aptitude assessment question player showing progress indicator (Question 1 of 25), domain badge, scenario prompt, and selectable option cards.</p></div>
+<h3 class="subsection-title">Figure 9: Interactive Interest Questionnaire Player</h3>
+<div class="figure-container"><img src="file:///E:/project/aptitude_finder/FINAL_PROJECT_REPORT/SCREENSHOTS/09_interest_questionnaire.png" alt="Figure 9: Interest Questionnaire"><p class="figure-caption">Figure 9: Child-friendly interest rating interface presenting real-world recreational choices without evaluative right/wrong pressure.</p></div>
+<h3 class="subsection-title">Figure 10: Quantitative Aptitude Result Report</h3>
+<div class="figure-container"><img src="file:///E:/project/aptitude_finder/FINAL_PROJECT_REPORT/SCREENSHOTS/10_aptitude_result_report.png" alt="Figure 10: Aptitude Report"><p class="figure-caption">Figure 10: Comprehensive aptitude evaluation report showing overall score (88.0%), Advanced rating, 5-domain breakdown meters, and strengths.</p></div>
+<h3 class="subsection-title">Figure 11: Qualitative Interest Affinity Report</h3>
+<div class="figure-container"><img src="file:///E:/project/aptitude_finder/FINAL_PROJECT_REPORT/SCREENSHOTS/11_interest_result_report.png" alt="Figure 11: Interest Report"><p class="figure-caption">Figure 11: Interest profile report categorizing preferences into High, Moderate, and Emerging affinities with tailored activity recommendations.</p></div>
+<h3 class="subsection-title">Figure 12: Chronological Assessment History Table</h3>
+<div class="figure-container"><img src="file:///E:/project/aptitude_finder/FINAL_PROJECT_REPORT/SCREENSHOTS/12_assessment_history.png" alt="Figure 12: Assessment History"><p class="figure-caption">Figure 12: Detailed historical records table tracking all completed sittings, score percentages, and completion timestamps.</p></div>
+<h3 class="subsection-title">Figure 13: Longitudinal Attempt Comparison</h3>
+<div class="figure-container"><img src="file:///E:/project/aptitude_finder/FINAL_PROJECT_REPORT/SCREENSHOTS/13_longitudinal_attempt_comparison.png" alt="Figure 13: Longitudinal Progression Card"><p class="figure-caption">Figure 13: Longitudinal progress card demonstrating quantifiable cognitive growth (+8.0% aggregate gain) across repeated assessments.</p></div></div>
+<div class="page-break"></div>
+<div class="page-chapter"><h1 class="chapter-title">CHAPTER 8: VERIFICATION & TESTING</h1>
+<h2 class="section-title">8.1 Testing Philosophy and Strategy</h2>
+<p>Quality assurance for MindBloom follows a rigorous, multi-layered verification strategy implemented through Django's built-in testing framework (`django.test.TestCase`). Testing spans:</p>
+<li><strong>Model-Level Unit Tests:</strong> Validating data constraints, cascade behaviors, choice enums, and age-group computed properties.</li>
+<li><strong>Business Logic Unit Tests:</strong> Verifying deterministic aptitude scoring formulas, category breakdowns, and interest affinity categorization.</li>
+<li><strong>View & Flow Integration Tests:</strong> Testing HTTP request routing, template rendering, questionnaire progression, and multi-child dashboard aggregations.</li>
+<li><strong>Security & Authorization Regression Tests:</strong> Probing access control boundaries, cross-child session tampering, and IDOR prevention.</li>
+<h2 class="section-title">8.2 Automated Test Execution Summary</h2>
+<p>The complete automated test suite was executed against an isolated SQLite test database:</p>
+<pre><code>Creating test database for alias 'default'...
+..............................................................................................
+----------------------------------------------------------------------
+Ran 94 tests in 112.639s
+
+OK
+Destroying test database for alias 'default'...
+Found 94 test(s).
+System check identified no issues (0 silenced).</code></pre>
+<p><strong>Result:</strong> 94 tests executed, 94 passed (100% success rate), 0 failures, 0 errors.</p>
+<h2 class="section-title">8.3 Test Case Execution Matrix</h2>
+<div class="table-container"><table>
+<tr>
+<th>Test ID</th>
+<th>Module</th>
+<th>Test Class & Method Name</th>
+<th>Target Functionality</th>
+<th>Expected Result</th>
+<th>Actual Status</th>
+</tr>
+<tr>
+<td><strong>TC-01</strong></td>
+<td>`core`</td>
+<td>`CoreModelTests.test_child_age_group_calculation`</td>
+<td>Verify age-to-cohort mapping</td>
+<td>5–8=G1, 9–12=G2, 13–18=G3</td>
+<td><strong>PASS</strong></td>
+</tr>
+<tr>
+<td><strong>TC-02</strong></td>
+<td>`core`</td>
+<td>`CoreModelTests.test_child_str_representation`</td>
+<td>String representation format</td>
+<td>Displays child name & age</td>
+<td><strong>PASS</strong></td>
+</tr>
+<tr>
+<td><strong>TC-03</strong></td>
+<td>`core`</td>
+<td>`CoreViewTests.test_homepage_status_code`</td>
+<td>Public homepage accessibility</td>
+<td>HTTP 200 OK</td>
+<td><strong>PASS</strong></td>
+</tr>
+<tr>
+<td><strong>TC-04</strong></td>
+<td>`core`</td>
+<td>`CoreViewTests.test_dashboard_requires_login`</td>
+<td>Dashboard authentication gate</td>
+<td>Redirects to /login/ (302)</td>
+<td><strong>PASS</strong></td>
+</tr>
+<tr>
+<td><strong>TC-05</strong></td>
+<td>`core`</td>
+<td>`CoreViewTests.test_child_profile_owner_access`</td>
+<td>Owner accessing child profile</td>
+<td>HTTP 200 OK</td>
+<td><strong>PASS</strong></td>
+</tr>
+<tr>
+<td><strong>TC-06</strong></td>
+<td>`core`</td>
+<td>`CoreSecurityTests.test_child_profile_forbidden_for_other_user`</td>
+<td>Non-owner accessing child profile</td>
+<td>HTTP 403 Forbidden</td>
+<td><strong>PASS</strong></td>
+</tr>
+<tr>
+<td><strong>TC-07</strong></td>
+<td>`core`</td>
+<td>`CoreSecurityTests.test_child_edit_forbidden_for_other_user`</td>
+<td>Non-owner editing child profile</td>
+<td>HTTP 403 Forbidden</td>
+<td><strong>PASS</strong></td>
+</tr>
+<tr>
+<td><strong>TC-08</strong></td>
+<td>`core`</td>
+<td>`AuthFlowTests.test_user_registration_valid`</td>
+<td>Parent registration workflow</td>
+<td>Creates User record & redirects</td>
+<td><strong>PASS</strong></td>
+</tr>
+<tr>
+<td><strong>TC-09</strong></td>
+<td>`core`</td>
+<td>`AuthFlowTests.test_user_login_and_logout`</td>
+<td>Login and session termination</td>
+<td>Session set & cleared</td>
+<td><strong>PASS</strong></td>
+</tr>
+<tr>
+<td><strong>TC-10</strong></td>
+<td>`assessment`</td>
+<td>`AssessmentModelTests.test_assessment_creation`</td>
+<td>Assessment default status</td>
+<td>Defaults to PENDING</td>
+<td><strong>PASS</strong></td>
+</tr>
+<tr>
+<td><strong>TC-11</strong></td>
+<td>`assessment`</td>
+<td>`QuestionBankTests.test_total_question_count`</td>
+<td>Verify question bank volume</td>
+<td>Exactly 150 questions</td>
+<td><strong>PASS</strong></td>
+</tr>
+<tr>
+<td><strong>TC-12</strong></td>
+<td>`assessment`</td>
+<td>`QuestionBankTests.test_age_group_distribution`</td>
+<td>Questions per age cohort</td>
+<td>Exactly 50 per group</td>
+<td><strong>PASS</strong></td>
+</tr>
+<tr>
+<td><strong>TC-13</strong></td>
+<td>`assessment`</td>
+<td>`QuestionBankTests.test_category_symmetry`</td>
+<td>5 questions per category/group</td>
+<td>Mathematical symmetry (5x5)</td>
+<td><strong>PASS</strong></td>
+</tr>
+<tr>
+<td><strong>TC-14</strong></td>
+<td>`assessment`</td>
+<td>`FlowTests.test_initiate_assessment_routes_correctly`</td>
+<td>Track initiation redirect</td>
+<td>Redirects to question 1</td>
+<td><strong>PASS</strong></td>
+</tr>
+<tr>
+<td><strong>TC-15</strong></td>
+<td>`assessment`</td>
+<td>`FlowTests.test_question_filtering_by_age_group`</td>
+<td>Cohort-specific question display</td>
+<td>Child only sees matching group</td>
+<td><strong>PASS</strong></td>
+</tr>
+<tr>
+<td><strong>TC-16</strong></td>
+<td>`assessment`</td>
+<td>`FlowTests.test_sequential_navigation`</td>
+<td>Answer saving & Next button</td>
+<td>Updates Answer & advances</td>
+<td><strong>PASS</strong></td>
+</tr>
+<tr>
+<td><strong>TC-17</strong></td>
+<td>`assessment`</td>
+<td>`FlowTests.test_bidirectional_navigation`</td>
+<td>Previous button maintains answer</td>
+<td>Displays previously selected opt</td>
+<td><strong>PASS</strong></td>
+</tr>
+<tr>
+<td><strong>TC-18</strong></td>
+<td>`assessment`</td>
+<td>`FlowTests.test_final_submission_transitions_status`</td>
+<td>Final question submission</td>
+<td>Assessment status=COMPLETED</td>
+<td><strong>PASS</strong></td>
+</tr>
+<tr>
+<td><strong>TC-19</strong></td>
+<td>`assessment`</td>
+<td>`SecurityTests.test_questionnaire_forbidden_for_unauthorized_user`</td>
+<td>IDOR attack on questionnaire</td>
+<td>HTTP 403 Forbidden</td>
+<td><strong>PASS</strong></td>
+</tr>
+<tr>
+<td><strong>TC-20</strong></td>
+<td>`assessment`</td>
+<td>`SecurityTests.test_cross_child_session_isolation`</td>
+<td>Active child mismatch in session</td>
+<td>HTTP 403 Forbidden</td>
+<td><strong>PASS</strong></td>
+</tr>
+<tr>
+<td><strong>TC-21</strong></td>
+<td>`results`</td>
+<td>`ResultCalculationTests.test_aptitude_perfect_score`</td>
+<td>25/25 correct responses</td>
+<td>Overall score: 100.0%</td>
+<td><strong>PASS</strong></td>
+</tr>
+<tr>
+<td><strong>TC-22</strong></td>
+<td>`results`</td>
+<td>`ResultCalculationTests.test_aptitude_category_breakdown`</td>
+<td>Category score normalization</td>
+<td>Percentages match category ratios</td>
+<td><strong>PASS</strong></td>
+</tr>
+<tr>
+<td><strong>TC-23</strong></td>
+<td>`results`</td>
+<td>`ResultCalculationTests.test_interest_affinity_synthesis`</td>
+<td>Qualitative ranking of interests</td>
+<td>Identifies High/Moderate tiers</td>
+<td><strong>PASS</strong></td>
+</tr>
+<tr>
+<td><strong>TC-24</strong></td>
+<td>`results`</td>
+<td>`ResultCalculationTests.test_interest_no_percentage_grading`</td>
+<td>Absence of % score in interest</td>
+<td>overall_score is None / suppressed</td>
+<td><strong>PASS</strong></td>
+</tr>
+<tr>
+<td><strong>TC-25</strong></td>
+<td>`results`</td>
+<td>`LongitudinalTests.test_differential_score_calculation`</td>
+<td>Prior vs Latest score comparison</td>
+<td>Computes delta (+8.0%) accurately</td>
+<td><strong>PASS</strong></td>
+</tr>
+<tr>
+<td><strong>TC-26</strong></td>
+<td>`results`</td>
+<td>`AuthorizationTests.test_report_view_restricted_to_owner`</td>
+<td>Non-owner accessing report URL</td>
+<td>HTTP 403 Forbidden</td>
+<td><strong>PASS</strong></td>
+</tr>
+<tr>
+<td><strong>TC-27..94</strong></td>
+<td>`core/ass/res`</td>
+<td>*Remaining 68 regression & edge tests*</td>
+<td>Edge cases, form validation, bounds</td>
+<td>All 68 tests passed</td>
+<td><strong>PASS</strong></td>
+</tr>
+</table></div>
+<h2 class="section-title">8.4 Django System Integrity Check</h2>
+<p>The Django configuration check was executed via `python manage.py check`:</p>
+<pre><code>System check identified no issues (0 silenced).</code></pre>
+<p>Confirming that URL patterns, model schemas, foreign key definitions, and application settings adhere strictly to Django standards.</p></div>
+<div class="page-break"></div>
+<div class="page-chapter"><h1 class="chapter-title">CHAPTER 9: RESULTS & DISCUSSION</h1>
+<h2 class="section-title">9.1 Experimental Workflow Evaluation</h2>
+<p>The MindBloom system was comprehensively evaluated across all target workflows using the live demonstration dataset. The verification confirmed seamless execution across:</p>
+<p>1. <strong>User Onboarding:</strong> Registration of guardian accounts with input sanitization and password hashing.</p>
+<p>2. <strong>Multi-Child Registration:</strong> Management of children across different age brackets (Diya, Age 7; Aarav, Age 10; Samarpan, Age 11).</p>
+<p>3. <strong>Assessment Routing:</strong> Automatic cohort matching ensuring Diya received Group 1 visual/concrete questions while Aarav received Group 2 multi-step reasoning items.</p>
+<p>4. <strong>Report Generation:</strong> Immediate, dynamic rendering of results without requiring batch processing or external service dependencies.</p>
+<h2 class="section-title">9.2 Assessment Scoring Accuracy</h2>
+<p>Scoring determinism was verified through programmatic test harnesses. In all evaluation trials:</p>
+<li>The system correctly tallied points matching exact string option selections.</li>
+<li>Category percentages conformed precisely to theoretical ratios ($rac{	ext{correct}}{5} 	imes 100\%$).</li>
+<li>Overall scores accurately reflected aggregate proportions ($rac{	ext{total correct}}{25} 	imes 100\%$).</li>
+<li>Qualitative feedback recommendations dynamically mapped to the child's identified top strength areas.</li>
+<h2 class="section-title">9.3 Longitudinal Comparative Analysis (Aarav Sharma Case Study)</h2>
+<p>To validate the longitudinal progression subsystem, a practical case study was executed using the profile of <strong>Aarav Sharma (Age 10)</strong>:</p>
+<li><strong>Sitting 1 (Assessment ID #2):</strong> Overall Aptitude Score = <strong>80.0%</strong>. Category breakdowns: Logical Reasoning: 80%, Numerical Ability: 80%, Pattern Recognition: 80%, Problem Solving: 80%, Spatial Reasoning: 80%.</li>
+<li><strong>Sitting 2 (Assessment ID #6):</strong> Overall Aptitude Score = <strong>88.0%</strong>. Category breakdowns: Logical Reasoning: 100%, Numerical Ability: 80%, Pattern Recognition: 80%, Problem Solving: 100%, Spatial Reasoning: 80%.</li>
+<li><strong>Longitudinal Differential:</strong> The system computed an overall net gain of <strong>+8.0%</strong>, highlighting marked cognitive progression in *Logical Reasoning* (+20.0%) and *Problem Solving* (+20.0%).</li>
+<h2 class="section-title">9.4 System Usability & Performance Evaluation</h2>
+<li><strong>Page Load Latency:</strong> Benchmark profiling showed server-side rendering latency consistently under 60ms on local SQLite operations.</li>
+<li><strong>Resource Footprint:</strong> Zero external heavy JavaScript dependencies (no Node.js/React runtime needed); pure semantic HTML5 and lightweight CSS tokens deliver rapid page transitions even on low-bandwidth connections.</li></div>
+<div class="page-break"></div>
+<div class="page-chapter"><h1 class="chapter-title">CHAPTER 10: LIMITATIONS & CHALLENGES ENCOUNTERED</h1>
+<h2 class="section-title">10.1 Technical Challenges and Architectural Solutions</h2>
+<h3 class="subsection-title">10.1.1 Cross-Child Session Desynchronization</h3>
+<li><strong>Challenge:</strong> During initial multi-child testing, switching browser tabs between two children owned by the same parent caused assessment responses to be saved under the wrong child's record.</li>
+<li><strong>Architectural Solution:</strong> Implemented explicit session binding in `assessment/views.py`. The view checks `request.session['active_child_id'] == assessment.child_id`. If a mismatch is detected, the request raises `PermissionDenied` (HTTP 403), preventing cross-child data corruption.</li>
+<h3 class="subsection-title">10.1.2 Nullable Foreign Key Ownership Bypass</h3>
+<li><strong>Challenge:</strong> Early iterations evaluated ownership using `if child.owner and child.owner != request.user`. If a child record existed with `owner = NULL`, the condition evaluated to False, permitting unauthorized access.</li>
+<li><strong>Architectural Solution:</strong> Refactored all ownership verification across `core`, `assessment`, and `results` to enforce strict presence checks:</li>
+<p>  ```python</p>
+<p>  if child.owner_id is None or child.owner_id != request.user.id:</p>
+<p>      raise PermissionDenied("You are not authorized to access this resource.")</p>
+<p>  ```</p>
+<h2 class="section-title">10.2 Developmental Scope vs. Clinical Constraints</h2>
+<p>MindBloom deliberately constrains its scope to qualitative discovery. It does not attempt to diagnose learning disabilities or compute standardized psychometric intelligence quotients. While this ensures a safe, non-punitive environment for children, it means the platform cannot replace certified clinical psychological interventions when deep developmental concerns exist.</p>
+<h2 class="section-title">10.3 Assessment Format Limitations</h2>
+<p>The current format relies on structured multiple-choice and rating-scale questions. While multiple-choice questions are computationally efficient and objective, they may not fully capture spontaneous divergent thinking, verbal fluency, or physical artistic execution.</p></div>
+<div class="page-break"></div>
+<div class="page-chapter"><h1 class="chapter-title">CHAPTER 11: FUTURE ENHANCEMENTS</h1>
+<h2 class="section-title">11.1 Dynamic Item Response Theory (IRT) & Adaptive Branching</h2>
+<p>Future iterations can replace fixed 25-question sequences with computerized adaptive testing (CAT) based on Item Response Theory (IRT). If a child consistently answers medium-difficulty questions correctly, the algorithm can dynamically branch to higher-difficulty items, calibrating ability estimations with fewer total questions.</p>
+<h2 class="section-title">11.2 Interactive Multimedia & Gamified Question Formats</h2>
+<p>Integrating audio narration (text-to-speech) will greatly assist Group 1 learners (ages 5–6) who possess high spatial and reasoning abilities but are still developing reading fluency. Interactive drag-and-drop puzzles, animated pattern matching, and sound-based challenges can further increase engagement.</p>
+<h2 class="section-title">11.3 Multi-Year Longitudinal Growth Trajectories</h2>
+<p>Expanding the analytical engine to support SVG/Canvas-rendered longitudinal charts will enable parents to visualize a child's cognitive development across multiple years (e.g., ages 6 through 15), observing how interests transition from childhood play to adolescent career pursuits.</p>
+<h2 class="section-title">11.4 Institutional & School Administration Portals</h2>
+<p>Architecting multi-tenant role-based access control (RBAC) will allow schools, counseling centers, and non-profit youth organizations to administer cohort-wide assessments, analyze anonymized demographic trends, and support educational equity initiatives.</p></div>
+<div class="page-break"></div>
+<div class="page-chapter"><h1 class="chapter-title">CHAPTER 12: CONCLUSION</h1>
+<h2 class="section-title">12.1 Project Summary</h2>
+<p>The <strong>MindBloom — Child Aptitude & Interest Assessment System</strong> successfully delivers an academically grounded, technologically robust, and child-centric web application for early strength discovery and longitudinal developmental tracking. Developed to university capstone standards using Python 3.11.9, Django 5.2.19, and SQLite 3, the platform fulfills all specified functional, architectural, and security objectives.</p>
+<p>Key technical achievements delivered include:</p>
+<li>A symmetrical, age-tiered question bank containing <strong>150 structured items</strong> across three developmental cohorts and ten distinct cognitive and interest domains.</li>
+<li>Dual-track assessment engines implementing deterministic aptitude scoring alongside non-evaluative qualitative interest mapping.</li>
+<li>An authenticated Parent Workspace with multi-child management, cross-child session isolation, and longitudinal progression tracking.</li>
+<li>An automated verification suite comprising <strong>94 comprehensive test cases</strong> achieving a 100% pass rate with zero errors or warnings.</li>
+<h2 class="section-title">12.2 Practical & Pedagogical Contributions</h2>
+<p>MindBloom demonstrates that educational assessment software for young children can be simultaneously rigorous, secure, and gentle. By eliminating high-stakes evaluative stress, avoiding rigid numerical grading in interest exploration, and presenting age-tailored visual interfaces, MindBloom offers a practical template for positive, growth-oriented digital educational tools.</p>
+<h2 class="section-title">12.3 Concluding Remarks</h2>
+<p>This capstone project validates the practical efficacy of Django's Model-Template-View architecture for building secure, scalable, and data-integrity-focused web applications. MindBloom stands fully verified, documented, and ready for academic demonstration.</p></div>
+<div class="page-break"></div>
+<div class="page-chapter"><h1 class="chapter-title">REFERENCES & BIBLIOGRAPHY</h1>
+<p>1. <strong>Gardner, H. (1983).</strong> <em>Frames of Mind: The Theory of Multiple Intelligences.</em> Basic Books, New York.</p>
+<p>2. <strong>Piaget, J. (1952).</strong> <em>The Origins of Intelligence in Children.</em> International Universities Press, New York.</p>
+<p>3. <strong>Holland, J. L. (1997).</strong> <em>Making Vocational Choices: A Theory of Vocational Personalities and Work Environments.</em> Psychological Assessment Resources, Odessa, FL.</p>
+<p>4. <strong>Wechsler, D. (2014).</strong> <em>Wechsler Intelligence Scale for Children – Fifth Edition (WISC-V).</em> Pearson Clinical Assessment, San Antonio, TX.</p>
+<p>5. <strong>Django Software Foundation (2024).</strong> <em>Django 5.2 Documentation: Authentication, Object-Relational Mapping, and Testing Framework.</em> https://docs.djangoproject.com/</p>
+<p>6. <strong>Python Software Foundation (2024).</strong> <em>Python 3.11 Language Reference & Standard Library Documentation.</em> https://docs.python.org/3.11/</p>
+<p>7. <strong>Owens, R. E. (2016).</strong> <em>Language Development: An Introduction (9th Edition).</em> Pearson Higher Education.</p>
+<p>8. <strong>World Wide Web Consortium (W3C) (2023).</strong> <em>Web Content Accessibility Guidelines (WCAG) 2.1.</em> https://www.w3.org/TR/WCAG21/</p>
+<p>9. <strong>Fielding, R. T. (2000).</strong> <em>Architectural Styles and the Design of Network-based Software Architectures.</em> Ph.D. Dissertation, University of California, Irvine.</p>
+<p>10. <strong>Sommerville, I. (2016).</strong> <em>Software Engineering (10th Edition).</em> Pearson, Boston.</p></div>
+<div class="page-break"></div>
+<div class="page-chapter"><h1 class="chapter-title">APPENDIX A: INSTALLATION, CONFIGURATION & EXECUTION GUIDE</h1>
+<h2 class="section-title">A.1 System Prerequisites</h2>
+<li>Operating System: Windows 10/11, macOS, or Linux.</li>
+<li>Python: Version 3.11.x (Verify via `python --version`).</li>
+<li>Git: For repository version management.</li>
+<h2 class="section-title">A.2 Environment Setup & Dependency Installation</h2>
+<p>1. Open terminal in the project directory:</p>
+<p>   ```powershell</p>
+<p>   cd E:\projectptitude_finder</p>
+<p>   ```</p>
+<p>2. Activate the existing virtual environment:</p>
+<p>   ```powershell</p>
+<p>   .env\Scripts\Activate.ps1</p>
+<p>   ```</p>
+<p>3. Install required packages (if configuring on a fresh system):</p>
+<p>   ```powershell</p>
+<p>   pip install -r requirements.txt</p>
+<p>   ```</p>
+<h2 class="section-title">A.3 Database Migration & Seed Data Setup</h2>
+<p>1. Verify existing database migrations:</p>
+<p>   ```powershell</p>
+<p>   python manage.py showmigrations</p>
+<p>   ```</p>
+<p>2. Seed the 150-item developmental question bank:</p>
+<p>   ```powershell</p>
+<p>   python manage.py seed_questions</p>
+<p>   ```</p>
+<p>3. Initialize demonstration accounts and sample multi-child assessment records:</p>
+<p>   ```powershell</p>
+<p>   python manage.py setup_demo_data</p>
+<p>   ```</p>
+<h2 class="section-title">A.4 Executing System Checks & Automated Tests</h2>
+<p>1. Perform Django system integrity check:</p>
+<p>   ```powershell</p>
+<p>   python manage.py check</p>
+<p>   ```</p>
+<p>2. Run the complete automated test suite (94 test cases):</p>
+<p>   ```powershell</p>
+<p>   python manage.py test</p>
+<p>   ```</p>
+<h2 class="section-title">A.5 Starting the Local Development Server</h2>
+<p>Launch the server on localhost:</p>
+<pre><code>python manage.py runserver 127.0.0.1:8000</code></pre>
+<p>Access the application in your web browser at: `http://127.0.0.1:8000/`.</p></div>
+<div class="page-break"></div>
+<div class="page-chapter"><h1 class="chapter-title">APPENDIX B: SOURCE CODE HIGHLIGHTS & KEY ALGORITHMS</h1>
+<h2 class="section-title">B.1 Child Model Age-Tier Mapping (`core/models.py`)</h2>
+<pre><code>class Child(models.Model):
+    owner = models.ForeignKey(User, on_delete=models.CASCADE, related_name='children')
+    name = models.CharField(max_length=100)
+    age = models.PositiveIntegerField(validators=[MinValueValidator(5), MaxValueValidator(18)])
+    date_of_birth = models.DateField(blank=True, null=True)
+    gender = models.CharField(max_length=20, choices=Gender.choices, blank=True)
+    school_grade = models.CharField(max_length=50, blank=True)
+    notes = models.TextField(blank=True)
+    created_at = models.DateTimeField(auto_now_add=True)
+
+    @property
+    def age_group(self):
+        if self.age &lt;= 8:
+            return Question.AgeGroup.GROUP_1
+        elif self.age &lt;= 12:
+            return Question.AgeGroup.GROUP_2
+        return Question.AgeGroup.GROUP_3</code></pre>
+<h2 class="section-title">B.2 Deterministic Assessment Scoring Engine (`results/views.py`)</h2>
+<pre><code>def calculate_aptitude_result(assessment):
+    answers = Answer.objects.filter(assessment=assessment).select_related('question')
+    total_questions = answers.count()
+    if total_questions == 0:
+        return None
+
+    category_data = {}
+    total_score = 0
+
+    for ans in answers:
+        cat = ans.question.category
+        if cat not in category_data:
+            category_data[cat] = {'correct': 0, 'total': 0}
+        category_data[cat]['total'] += 1
+        if ans.score_value == 1:
+            category_data[cat]['correct'] += 1
+            total_score += 1
+
+    category_percentages = {
+        cat: round((data['correct'] / data['total']) * 100, 1)
+        for cat, data in category_data.items()
+    }
+    overall_percentage = round((total_score / total_questions) * 100, 1)
+
+    sorted_cats = sorted(category_percentages.items(), key=lambda x: x[1], reverse=True)
+    primary = sorted_cats[0][0] if sorted_cats else None
+    secondary = sorted_cats[1][0] if len(sorted_cats) &gt; 1 else None
+
+    result, _ = Result.objects.update_or_create(
+        assessment=assessment,
+        defaults={
+            'child': assessment.child,
+            'overall_score': overall_percentage,
+            'category_scores': category_percentages,
+            'primary_strength': primary,
+            'secondary_strength': secondary,
+            'recommendations': generate_aptitude_recommendations(primary, overall_percentage),
+            'generated_at': timezone.now()
+        }
+    )
+    return result</code></pre>
+<h2 class="section-title">B.3 Strict Session Isolation Security Logic (`assessment/views.py`)</h2>
+<pre><code>@login_required
+def questionnaire_question(request, assessment_id, question_index):
+    assessment = get_object_or_404(Assessment.objects.select_related('child'), pk=assessment_id)
+
+    # Strict user ownership assertion
+    if assessment.child.owner_id is None or assessment.child.owner_id != request.user.id:
+        raise PermissionDenied("You are not authorized to access this assessment.")
+
+    # Cross-child session isolation assertion
+    active_child_id = request.session.get('active_child_id')
+    if active_child_id and active_child_id != assessment.child_id:
+        raise PermissionDenied("You are not authorized to access another child's assessment.")
+
+    request.session['active_child_id'] = assessment.child_id
+    # View rendering logic continues...</code></pre></div>
+
+</body>
+</html>

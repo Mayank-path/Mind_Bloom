@@ -1,0 +1,147 @@
+{% extends "base.html" %}
+
+{% block title %}Child Registration | MindBloom{% endblock %}
+
+{% block content %}
+<section class="page-hero" style="padding-bottom: 2rem; margin-bottom: 2rem;">
+    <div class="container" style="text-align: center;">
+        <span class="section-tag">Step 1 of 2 &bull; Personalization</span>
+        <h1 class="page-hero-title">Tell Us About the Child</h1>
+        <p class="page-hero-lead" style="margin: 0 auto;">
+            Enter basic profile details so we can calibrate age-appropriate questions and tailor the strengths feedback.
+        </p>
+    </div>
+</section>
+
+<section class="container">
+    <div class="form-wrapper">
+        <div class="form-card">
+            <!-- Informative Trust Callout -->
+            <div style="display: flex; align-items: center; gap: 0.75rem; background-color: var(--color-primary-bg); border-radius: var(--radius-md); padding: 0.85rem 1rem; margin-bottom: 2rem; font-size: 0.88rem; color: var(--color-primary);">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="flex-shrink: 0;">
+                    <circle cx="12" cy="12" r="10"></circle>
+                    <line x1="12" y1="16" x2="12" y2="12"></line>
+                    <line x1="12" y1="8" x2="12.01" y2="8"></line>
+                </svg>
+                <span>Information provided is used exclusively to calibrate the child's individual assessment profile.</span>
+            </div>
+
+            <form method="post" action="{% url 'assessment:register' %}" novalidate>
+                {% csrf_token %}
+
+                <!-- Non-field / Global Errors -->
+                {% if form.non_field_errors %}
+                    <div class="alert alert-danger">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <circle cx="12" cy="12" r="10"></circle>
+                            <line x1="12" y1="8" x2="12" y2="12"></line>
+                            <line x1="12" y1="16" x2="12.01" y2="16"></line>
+                        </svg>
+                        <div>
+                            {% for error in form.non_field_errors %}
+                                <p>{{ error }}</p>
+                            {% endfor %}
+                        </div>
+                    </div>
+                {% endif %}
+
+                <!-- 1. Full Name -->
+                <div class="form-group">
+                    <label for="{{ form.name.id_for_label }}" class="form-label">
+                        {{ form.name.label }} <span class="req" title="Required field">*</span>
+                    </label>
+                    {{ form.name }}
+                    {% if form.name.errors %}
+                        <div class="form-error-list">
+                            {% for error in form.name.errors %}
+                                <div class="form-error-text">
+                                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="12" cy="12" r="10"></circle><line x1="12" y1="8" x2="12" y2="12"></line><line x1="12" y1="16" x2="12.01" y2="16"></line></svg>
+                                    {{ error }}
+                                </div>
+                            {% endfor %}
+                        </div>
+                    {% endif %}
+                    {% if form.name.help_text %}
+                        <div class="form-help-text">{{ form.name.help_text }}</div>
+                    {% endif %}
+                </div>
+
+                <!-- 2. Age -->
+                <div class="form-group">
+                    <label for="{{ form.age.id_for_label }}" class="form-label">
+                        {{ form.age.label }} <span class="req" title="Required field">*</span>
+                    </label>
+                    {{ form.age }}
+                    {% if form.age.errors %}
+                        <div class="form-error-list">
+                            {% for error in form.age.errors %}
+                                <div class="form-error-text">
+                                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="12" cy="12" r="10"></circle><line x1="12" y1="8" x2="12" y2="12"></line><line x1="12" y1="16" x2="12.01" y2="16"></line></svg>
+                                    {{ error }}
+                                </div>
+                            {% endfor %}
+                        </div>
+                    {% endif %}
+                    {% if form.age.help_text %}
+                        <div class="form-help-text">{{ form.age.help_text }}</div>
+                    {% endif %}
+                </div>
+
+                <!-- 3. Gender -->
+                <div class="form-group">
+                    <label for="{{ form.gender.id_for_label }}" class="form-label">
+                        {{ form.gender.label }} <span class="req" title="Required field">*</span>
+                    </label>
+                    {{ form.gender }}
+                    {% if form.gender.errors %}
+                        <div class="form-error-list">
+                            {% for error in form.gender.errors %}
+                                <div class="form-error-text">
+                                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="12" cy="12" r="10"></circle><line x1="12" y1="8" x2="12" y2="12"></line><line x1="12" y1="16" x2="12.01" y2="16"></line></svg>
+                                    {{ error }}
+                                </div>
+                            {% endfor %}
+                        </div>
+                    {% endif %}
+                    {% if form.gender.help_text %}
+                        <div class="form-help-text">{{ form.gender.help_text }}</div>
+                    {% endif %}
+                </div>
+
+                <!-- 4. Grade / School Class (Optional) -->
+                <div class="form-group">
+                    <label for="{{ form.grade.id_for_label }}" class="form-label">
+                        {{ form.grade.label }}
+                    </label>
+                    {{ form.grade }}
+                    {% if form.grade.errors %}
+                        <div class="form-error-list">
+                            {% for error in form.grade.errors %}
+                                <div class="form-error-text">
+                                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="12" cy="12" r="10"></circle><line x1="12" y1="8" x2="12" y2="12"></line><line x1="12" y1="16" x2="12.01" y2="16"></line></svg>
+                                    {{ error }}
+                                </div>
+                            {% endfor %}
+                        </div>
+                    {% endif %}
+                    {% if form.grade.help_text %}
+                        <div class="form-help-text">{{ form.grade.help_text }}</div>
+                    {% endif %}
+                </div>
+
+                <!-- Submission Actions -->
+                <div style="margin-top: 2rem;">
+                    <button type="submit" class="btn btn-primary btn-lg" style="width: 100%;">
+                        <span>Continue to Assessment Selection</span>
+                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+                            <line x1="5" y1="12" x2="19" y2="12"></line>
+                            <polyline points="12 5 19 12 12 19"></polyline>
+                        </svg>
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+</section>
+{% endblock %}
+
